@@ -1,0 +1,27 @@
+# ~/.bashrc: sourced on opening an interactive shell
+[[ $- != *i* ]] && return
+
+# Set a basic prompt.
+PS1='[\u@\h \W]\$ '
+
+# Move the history file to a more appropriate location.
+export HISTFILE="$XDG_DATA_HOME/bash/history"
+# Prevent duplicate lines or lines starting with spaces from being stored.
+HISTCONTROL=ignoreboth
+# Append to the history instead of overwriting it.
+shopt -s histappend
+
+# Error out when glob expansion fails.
+shopt -s failglob
+# Enable matching patterns such as '/etc/**/*.conf', which will expand to any
+# number of directories.
+shopt -s globstar
+
+# Update the values of LINES and COLUMNS after each command.
+shopt -s checkwinsize
+
+# Tell ls and friends to use coloured output whenever possible.
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'

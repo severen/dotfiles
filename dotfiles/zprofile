@@ -1,0 +1,35 @@
+# ~/.zprofile: sourced on login directly before ~/.zshrc
+
+# The XDG Base Directory variables don't have to be explicitly set to their
+# defaults, but since it is handy to be able to refer to them, I set them
+# anyway.
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# Attempt to stop naughty programs from ignoring the XDG Base Directory
+# specification.
+export GOPATH="$HOME/Documents/Go"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export STACK_ROOT="$XDG_DATA_HOME/stack"
+export LESSHISTFILE="$XDG_DATA_HOME/less/history"
+export ELINKS_CONFDIR="$XDG_DATA_HOME/elinks"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node/repl_history"
+export MPD_HOST="$XDG_RUNTIME_DIR/mpd/socket"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export __GL_SHADER_DISK_CACHE_PATH="$XDG_CACHE_HOME/nvidia/gl"
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nvidia/cuda"
+export ICEAUTHORITY="$XDG_RUNTIME_DIR/ICEauthority"
+# This breaks logging in for some reason.
+#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+
+# Trick applications into thinking the DE is KDE.
+export XDG_CURRENT_DESKTOP=kde
+# Tell Qt to use Qt5ct for theming.
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+# Prevent duplicate entries in $PATH.
+typeset -U path
+# Set PATH using Zsh's array feature.
+export path=($HOME/.local/bin $CARGO_HOME/bin $GOPATH/bin $PATH)

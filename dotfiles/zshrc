@@ -1,0 +1,190 @@
+# ~/.zshrc: sourced on opening an interactive shell
+
+# * About
+
+# This is my personal Zsh configuration, written from the perspective of wanting
+# the feature set of Fish, but the POSIX-compatibility of more traditional
+# shells.
+
+# * Plugin Manager
+
+# I currently use zplugin as my plugin manager. It's a bit flaky and complicated
+# but is fast and works as long as you don't mess it with it, so for now I'm
+# happy with it.
+#
+# TODO: Automatically install zplugin if it is not already installed.
+
+# Change the default directories to something more XDG-friendly.
+declare -A ZINIT
+ZINIT[HOME_DIR]="$XDG_DATA_HOME/zinit"
+ZINIT[BIN_DIR]="$XDG_DATA_HOME/zinit/bin"
+
+# Load zplugin
+source "$ZINIT[BIN_DIR]/zinit.zsh"
+autoload -Uz _zinit
+
+# * Basics
+
+# Enable changing directories by entering only a path.
+setopt autocd
+
+# Handle scroll events in less.
+# TODO: Also use '-q' to silence the bell when the end of a file is hit.
+export LESS='--mouse'
+
+# * Aliases
+
+alias zzz='systemctl suspend'
+
+alias edit='eval $EDITOR'
+alias view='nvim -R'
+alias icat='kitty icat'
+alias lookbusy='cat /dev/urandom | hexdump -C | grep --color "ca fe"'
+alias gpl='git log --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+
+# * Visuals
+
+autoload -Uz promptinit
+promptinit
+# TODO: Write my own prompt.
+prompt walters
+
+# Use an I-beam cursor instead of a solid rectangle.
+echo -ne '\e[5 q'
+
+# Tell ls and friends to use coloured output whenever possible.
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Replace ls and tree with Exa if possible.
+if (( $+commands[exa] )) then
+  alias ls='exa --color=auto --group-directories-first'
+  alias lsx='exa --color=auto --long --header --group --git --group-directories-first'
+  alias tree='exa --color=auto --git-ignore --tree'
+fi
+
+# * Interface
+
+# Automatically pair brackets.
+zinit light hlissner/zsh-autopair
+
+# A wrapper around Ranger that will cd into the last directory visited.
+function ranger-cd {
+  local tempfile="$(mktemp --tmpdir tmp.XXXXXX)"
+
+  ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+
+  test -f "$tempfile" &&
+  if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+    cd -- "$(cat "$tempfile")"
+  fi
+  rm -f -- "$tempfile"
+}
+bindkey -s '^b' ' ranger-cd\n'
+
+# ** Completion
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':compinstall' filename '$HOME/.zshrc'
+
+# Add completions for rustc and cargo.
+fpath=($(rustc --print sysroot)/share/zsh/site-functions $fpath)
+
+zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
+
+autoload -Uz compinit bashcompinit
+compinit -d "$ZSH_CACHE/compdump"
+bashcompinit
+
+zinit cdreplay -q
+
+# ** Fzf
+
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+# Parse ANSI escape codes.
+export FZF_DEFAULT_OPTS='--ansi'
+# Use fd instead of find.
+export FZF_DEFAULT_COMMAND='fd --type file --color=always'
+export FZF_CTRL_T_COMMAND='fd --type file --color=always'
+export FZF_ALT_C_COMMAND='fd --type directory --color=always'
+
+# * History
+
+# Making Zsh's command history work like a modern shell should is a bit of an
+# ordeal, but possible.
+
+# Store the history in an XDG-friendly location and store 2000 lines of history
+# instead of the default of 60 (welcome to the 21st century!).
+HISTFILE="$XDG_DATA_HOME/zsh/history"
+HISTSIZE=2000
+SAVEHIST="$HISTSIZE"
+
+# Store when the command was started and how long it took to run.
+setopt EXTENDED_HISTORY
+
+# Share history amongst running shells. The former checks if any history has
+# been written by other shells and adds it to the current shell's history, and
+# the latter incrementally appends to the history file while the shell is
+# running (rather than writing to it once the shell exits).
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
+# Make ! display the command that would be run, rather than executing it
+# immediately.
+setopt HIST_VERIFY
+
+# Remove any excess spaces in the history.
+setopt HIST_REDUCE_BLANKS
+
+# Do not store any history or fc invocations.
+setopt HIST_NO_STORE
+# Do not store any functions.
+setopt HIST_NO_FUNCTIONS
+# Do not store any commands that begin with a space.
+setopt HIST_IGNORE_SPACE
+
+# Prevent failed commands from being stored in the history. Do *not* ask me what
+# the fuck this actually does, I took it from Stack Overflow.
+function zshaddhistory() {
+  whence ${${(z)1}[1]} >| /dev/null || return 1
+}
+
+# The following options are my attempt at preventing duplicates in the history:
+
+# Do not record an entry that was _just_ recorded again.
+setopt HIST_IGNORE_DUPS
+# Delete old entries if a new entry is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS
+# Expire duplicate entries first when trimming history.
+setopt HIST_EXPIRE_DUPS_FIRST
+# Do not save any duplicate entries to the history file.
+setopt HIST_SAVE_NO_DUPS
+# Do not display any duplicate entries more than once when searching through the
+# history.
+setopt HIST_FIND_NO_DUPS
+
+# Disable beeping when scrolling past the end of the history list.
+setopt NO_HIST_BEEP
+
+# * Things that Must Go at the End
+
+# These particular plugins must be sourced last and in this order to function
+# properly. While there is probably some way to enforce this using zinit without
+# sticking them all at the end of the file, I can't (currently) be bothered how
+# to figure this out.
+#
+# TODO: Fix the above.
+
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+zinit light zsh-users/zsh-syntax-highlighting
+zinit ice wait lucid atload'_zsh_autosuggest_start'
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-history-substring-search

@@ -1,0 +1,12 @@
+# ~/.zshenv: sourced on every invocation of Zsh
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+export SUDO_EDITOR="$VISUAL"
+
+export DIFFPROG="nvim -d"
+
+export SHELL=$(command -v zsh)
+
+#export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ZSH_CACHE="$XDG_CACHE_HOME/zsh"

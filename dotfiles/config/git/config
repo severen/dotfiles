@@ -1,0 +1,31 @@
+[user]
+  name = Severen Redwood
+  email = severen@shrike.me
+  signingkey = 43E7EEDF
+
+[github]
+  user = severen
+
+[push]
+  default = simple
+
+[core]
+  pager = less --tabs=4 -RFX
+
+[pager]
+  diff = diff-so-fancy | less --tabs=4 -RFX
+  show = diff-so-fancy | less --tabs=4 -RFX
+
+[color "diff"]
+  meta = yellow
+  frag = magenta bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22

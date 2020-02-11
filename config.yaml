@@ -1,0 +1,63 @@
+config:
+  backup: false
+  create: true
+  dotpath: dotfiles
+dotfiles:
+  f_bash_bashrc:
+    src: bashrc
+    dst: ~/.bashrc
+    link: link
+  f_zsh_zshrc:
+    src: zshrc
+    dst: ~/.zshrc
+    link: link
+  f_zsh_zshenv:
+    src: zshenv
+    dst: ~/.zshenv
+    link: link
+  f_zsh_zprofile:
+    src: zprofile
+    dst: ~/.zprofile
+    link: link
+  f_ssh_config:
+    src: ssh/config
+    dst: ~/.ssh/config
+    link: link
+  f_git_config:
+    src: config/git/config
+    dst: ~/.config/git/config
+    link: link
+  f_ranger_rc.conf:
+    src: config/ranger/rc.conf
+    dst: ~/.config/ranger/rc.conf
+    link: link
+  f_ranger_scope.sh:
+    src: config/ranger/scope.sh
+    dst: ~/.config/ranger/scope.sh
+    link: link
+  f_kitty_kitty.conf:
+    src: config/kitty/kitty.conf
+    dst: ~/.config/kitty/kitty.conf
+    link: link
+  f_mpv_mpv.conf:
+    src: config/mpv/mpv.conf
+    dst: ~/.config/mpv/mpv.conf
+    link: link
+  f_mpv_input.conf:
+    src: config/mpv/input.conf
+    dst: ~/.config/mpv/input.conf
+    link: link
+profiles:
+  phoebus:
+    dotfiles:
+    - f_bash_bashrc
+    - f_zsh_zshrc
+    - f_zsh_zprofile
+    - f_zsh_zshenv
+    - f_ssh_config
+    - f_git_config
+    - f_ranger_rc.conf
+    - f_ranger_scope.sh
+    - f_kitty_kitty.conf
+    - f_mpv_mpv.conf
+    - f_mpv_input.conf
