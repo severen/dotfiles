@@ -1,0 +1,29 @@
+set font "monospace normal 11"
+
+set default-bg "#212733"
+set default-fg "#DFDFDF"
+
+set statusbar-bg "#212733"
+set statusbar-fg "#DFDFDF"
+
+set inputbar-bg "#212733"
+set inputbar-fg "#DFDFDF"
+
+set completion-bg "#212733"
+set completion-fg "#DFDFDF"
+set completion-group-bg "#212733"
+set completion-group-fg "#D4BFFF"
+set completion-highlight-bg "#73D0FF"
+set completion-highlight-fg "#212733"
+
+set notification-bg "#212733"
+set notification-fg "#DFDFDF"
+
+set notification-warning-bg "#FFDD99"
+set notification-warning-fg "#212733"
+
+set notification-error-bg "#F28779"
+set notification-error-fg "#212733"
+
+set highlight-color "#D4BFFF"
+set highlight-active-color "#73D0FF"

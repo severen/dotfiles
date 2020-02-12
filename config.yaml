@@ -59,6 +59,9 @@ dotfiles:
     src: config/mpv/input.conf
     dst: ~/.config/mpv/input.conf
     link: link
+  f_zathura_zathurarc:
+    src: config/zathura/zathurarc
+    dst: ~/.config/zathura/zathurarc
 profiles:
   phoebus:
     dotfiles:
@@ -76,3 +79,4 @@ profiles:
     - f_kitty_kitty.conf
     - f_mpv_mpv.conf
     - f_mpv_input.conf
+    - f_zathura_zathurarc
