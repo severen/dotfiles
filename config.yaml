@@ -27,6 +27,10 @@ dotfiles:
     src: config/git/config
     dst: ~/.config/git/config
     link: link
+  f_nvim_init.vim:
+    src: config/nvim/init.vim
+    dst: ~/.config/nvim/init.vim
+    link: link
   f_ranger_rc.conf:
     src: config/ranger/rc.conf
     dst: ~/.config/ranger/rc.conf
@@ -61,3 +65,4 @@ profiles:
     - f_kitty_kitty.conf
     - f_mpv_mpv.conf
     - f_mpv_input.conf
+    - f_nvim_init.vim
