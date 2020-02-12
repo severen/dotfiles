@@ -43,6 +43,10 @@ dotfiles:
     src: config/fontconfig/conf.d/01-overrides.conf
     dst: ~/.config/fontconfig/conf.d/01-overrides.conf
     link: link
+  f_rofi_config:
+    src: config/rofi/config
+    dst: ~/.config/rofi/config
+    link: link
   f_kitty_kitty.conf:
     src: config/kitty/kitty.conf
     dst: ~/.config/kitty/kitty.conf
@@ -68,6 +72,7 @@ profiles:
     - f_ranger_rc.conf
     - f_ranger_scope.sh
     - f_fontconfig_01-overrides.conf
+    - f_rofi_config
     - f_kitty_kitty.conf
     - f_mpv_mpv.conf
     - f_mpv_input.conf
