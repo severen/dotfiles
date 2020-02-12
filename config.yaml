@@ -43,6 +43,10 @@ dotfiles:
     src: config/fontconfig/conf.d/01-overrides.conf
     dst: ~/.config/fontconfig/conf.d/01-overrides.conf
     link: link
+  f_pulseaudio_client.conf:
+    src: config/pulse/client.conf
+    dst: ~/.config/pulse/client.conf
+    link: link
   f_rofi_config:
     src: config/rofi/config
     dst: ~/.config/rofi/config
@@ -62,6 +66,7 @@ dotfiles:
   f_zathura_zathurarc:
     src: config/zathura/zathurarc
     dst: ~/.config/zathura/zathurarc
+    link: link
 profiles:
   phoebus:
     dotfiles:
@@ -75,6 +80,7 @@ profiles:
     - f_ranger_rc.conf
     - f_ranger_scope.sh
     - f_fontconfig_01-overrides.conf
+    - f_pulseaudio_client.conf
     - f_rofi_config
     - f_kitty_kitty.conf
     - f_mpv_mpv.conf
