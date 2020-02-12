@@ -34,4 +34,4 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 # Prevent duplicate entries in $PATH.
 typeset -U path
 # Set PATH using Zsh's array feature.
-export path=($HOME/.local/bin $CARGO_HOME/bin $GOPATH/bin $PATH)
+export path=($HOME/.local/bin $CARGO_HOME/bin $GOPATH/bin $path[@])
