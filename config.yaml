@@ -39,6 +39,10 @@ dotfiles:
     src: config/ranger/scope.sh
     dst: ~/.config/ranger/scope.sh
     link: link
+  f_fontconfig_01-overrides.conf:
+    src: config/fontconfig/conf.d/01-overrides.conf
+    dst: ~/.config/fontconfig/conf.d/01-overrides.conf
+    link: link
   f_kitty_kitty.conf:
     src: config/kitty/kitty.conf
     dst: ~/.config/kitty/kitty.conf
@@ -60,9 +64,10 @@ profiles:
     - f_zsh_zshenv
     - f_ssh_config
     - f_git_config
+    - f_nvim_init.vim
     - f_ranger_rc.conf
     - f_ranger_scope.sh
+    - f_fontconfig_01-overrides.conf
     - f_kitty_kitty.conf
     - f_mpv_mpv.conf
     - f_mpv_input.conf
-    - f_nvim_init.vim
