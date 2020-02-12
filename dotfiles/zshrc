@@ -60,9 +60,9 @@ alias egrep='egrep --color=auto'
 
 # Replace ls and tree with Exa if possible.
 if (( $+commands[exa] )) then
-  alias ls='exa --color=auto --group-directories-first'
-  alias lsx='exa --color=auto --long --header --group --git --group-directories-first'
-  alias tree='exa --color=auto --git-ignore --tree'
+  alias ls='exa --color=auto --classify --group-directories-first'
+  alias lsx='exa --color=auto --classify --long --header --group --git --group-directories-first'
+  alias tree='exa --color=auto --classify --git-ignore --tree'
 fi
 
 # * Interface
