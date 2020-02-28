@@ -79,6 +79,10 @@ dotfiles:
     src: config/kitty/kitty.conf
     dst: ~/.config/kitty/kitty.conf
     link: link
+  f_mpd_mpd.conf:
+    src: config/mpd/mpd.conf
+    dst: ~/.config/mpd/mpd.conf
+    link: link
   f_mpv_mpv.conf:
     src: config/mpv/mpv.conf
     dst: ~/.config/mpv/mpv.conf
@@ -113,6 +117,7 @@ profiles:
     - f_pulseaudio_client.conf
     - f_rofi_config
     - f_kitty_kitty.conf
+    - f_mpd_mpd.conf
     - f_mpv_mpv.conf
     - f_mpv_input.conf
     - f_zathura_zathurarc
