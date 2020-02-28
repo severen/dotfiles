@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+type python > /dev/null || { echo "Executable \"python\" not in PATH or installed, aborting." && exit 1; }
+type pip > /dev/null || { echo "Exectuable \"pip\" not in PATH or installed, aborting." && exit 1; }
+
 odir="$(pwd)"
 ddir="$(dirname "$(readlink -f "${0}")")"
 
