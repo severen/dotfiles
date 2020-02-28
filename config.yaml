@@ -47,6 +47,10 @@ dotfiles:
     src: config/systemd/user/picom.service
     dst: ~/.config/systemd/user/picom.service
     link: link
+  f_bspwm_bspwmrc:
+    src: config/bspwm/bspwmrc
+    dst: ~/.config/bspwm/bspwmrc
+    link: link
   f_systemd_sxhkd.service:
     src: config/systemd/user/sxhkd.service
     dst: ~/.config/systemd/user/sxhkd.service
@@ -101,6 +105,7 @@ profiles:
     - f_ranger_scope.sh
     - f_systemd_ssh-agent.service
     - f_systemd_picom.service
+    - f_bspwm_bspwmrc
     - f_systemd_sxhkd.service
     - f_systemd_polybar.service
     - f_systemd_xbanish.service
