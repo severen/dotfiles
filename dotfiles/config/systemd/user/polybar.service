@@ -1,0 +1,10 @@
+[Unit]
+Description=X status bar
+Documentation=man:polybar(1)
+
+[Service]
+ExecStart=/usr/bin/polybar main
+ExecReload=/usr/bin/polybar-msg cmd restart
+
+[Install]
+WantedBy=graphical.target

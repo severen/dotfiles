@@ -1,0 +1,9 @@
+[Unit]
+Description=X compositor
+Documentation=man:picom(1)
+
+[Service]
+ExecStart=/usr/bin/picom
+
+[Install]
+WantedBy=graphical.target

@@ -39,6 +39,26 @@ dotfiles:
     src: config/ranger/scope.sh
     dst: ~/.config/ranger/scope.sh
     link: link
+  f_systemd_ssh-agent.service:
+    src: config/systemd/user/ssh-agent.service
+    dst: ~/.config/systemd/user/ssh-agent.service
+    link: link
+  f_systemd_picom.service:
+    src: config/systemd/user/picom.service
+    dst: ~/.config/systemd/user/picom.service
+    link: link
+  f_systemd_sxhkd.service:
+    src: config/systemd/user/sxhkd.service
+    dst: ~/.config/systemd/user/sxhkd.service
+    link: link
+  f_systemd_polybar.service:
+    src: config/systemd/user/polybar.service
+    dst: ~/.config/systemd/user/polybar.service
+    link: link
+  f_systemd_xbanish.service:
+    src: config/systemd/user/xbanish.service
+    dst: ~/.config/systemd/user/xbanish.service
+    link: link
   f_fontconfig_01-overrides.conf:
     src: config/fontconfig/conf.d/01-overrides.conf
     dst: ~/.config/fontconfig/conf.d/01-overrides.conf
@@ -79,6 +99,11 @@ profiles:
     - f_nvim_init.vim
     - f_ranger_rc.conf
     - f_ranger_scope.sh
+    - f_systemd_ssh-agent.service
+    - f_systemd_picom.service
+    - f_systemd_sxhkd.service
+    - f_systemd_polybar.service
+    - f_systemd_xbanish.service
     - f_fontconfig_01-overrides.conf
     - f_pulseaudio_client.conf
     - f_rofi_config

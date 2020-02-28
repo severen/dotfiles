@@ -1,0 +1,9 @@
+[Unit]
+Description=Hide the X mouse cursor
+Documentation=man:xbanish(1)
+
+[Service]
+ExecStart=/usr/bin/xbanish -i shift -i control -i mod1 -i mod4
+
+[Install]
+WantedBy=graphical.target
