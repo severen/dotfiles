@@ -1,1 +1,5 @@
+# Python virtual environment for dotdrop
 .venv
+
+# Byte-compiled Emacs Lisp
+*.elc
