@@ -31,6 +31,10 @@ dotfiles:
     src: config/nvim/init.vim
     dst: ~/.config/nvim/init.vim
     link: link
+  d_emacs:
+    src: config/emacs
+    dst: ~/.config/emacs
+    link: link
   f_ranger_rc.conf:
     src: config/ranger/rc.conf
     dst: ~/.config/ranger/rc.conf
@@ -109,6 +113,7 @@ profiles:
     - f_ssh_config
     - f_git_config
     - f_nvim_init.vim
+    - d_emacs
     - f_ranger_rc.conf
     - f_ranger_scope.sh
     - f_systemd_ssh-agent.service

@@ -1,0 +1,33 @@
+#+TITLE: Coding Conventions
+#+AUTHOR: Severen Redwood
+#+STARTUP: indent
+
+This file documents some of the simple conventions I use when writing Emacs
+Lisp.
+
+* Naming
+
+All functions and bindings should follow these conventions, with the exception
+of a select few where it makes sense (such as functions that are used very
+often).
+
+Functions must follow these conventions:
+
++ =my/foo= is an /interactive function/ named =foo=.
++ =my//bar= is a /private function/ named =bar=.
++ =baz!= is a /macro/ named =baz=.
+
+Bindings must follow these conventions:
+
++ =my-qux= is a /public variable/ named =qux=.
++ =my--quux= is a /private variable/ named =quz=.
++ =QUUZ= is a /constant/ named =quuz=. Note that constants should be important
+  enough to warrant the lack of a namespace.
+
+* Style
+
+There are also some general guidelines in regards to code style:
+
++ Always wrap a multiple statement block under the =:init= or =:config= keywords
+  of a use-package call with =progn=.
++ Never use a lambda as a hook function. Instead, define a function.
