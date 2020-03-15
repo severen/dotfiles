@@ -4,7 +4,7 @@ let prefix = '~/.local/share/nvim/'
 
 " Install vim-plug if it is not installed.
 if empty(glob(prefix . 'site/autoload/plug.vim'))
-  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
