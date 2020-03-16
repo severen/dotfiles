@@ -806,6 +806,51 @@ For documentation on the type of line numbers used, see
     (editorconfig-mode 1)))
 
 ;;; Language Support
+;;;; Generic Support via LSP
+
+;; The Language Server Protocol (LSP) defines an editor and language agnostic
+;; protocol for "language servers" that provide completion, linting, and other
+;; IDE-like features.
+
+(use-package lsp-mode
+  :hook ((rust-mode c-mode c++-mode) . lsp)
+  :init
+  (setq
+   ;; I choose to manually configure lsp-mode since its auto configuration
+   ;; enables Flymake by default, while I prefer to use Flycheck.
+   lsp-auto-configure nil
+   ;; Store the session file in an XDG BaseDir-compliant location.
+   lsp-session-file (expand-file-name "lsp-session-v1" DATA-DIR)
+   ;; Instruct clangd to run clang-tidy, not automatically insert header
+   ;; includes, and look for `compile_commands.json' in `./build'.
+   ;; TODO: Come up with a clever way to find the compilation database.
+   lsp-clients-clangd-args '("--clang-tidy"
+                             "--header-insertion=never"
+                             "--compile-commands-dir=build"))
+  :config
+  (progn
+    ;; Make LSP aware of the built-in clients
+    (require 'lsp-clients)
+    ;; Disable highlighting references to the symbol under the point, since I
+    ;; find it quite distracting.
+    (remove-hook 'lsp-eldoc-hook #'lsp-document-highlight)))
+
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :init
+  ;; Disable the annoying pop-ups.
+  (setq lsp-ui-sideline-enable nil
+        lsp-ui-doc-enable nil)
+  :config
+  (progn
+    (require 'lsp-ui-flycheck)
+    (lsp-ui-flycheck-enable t)))
+
+(use-package company-lsp
+  :after lsp-mode
+  :commands company-lsp
+  :init (add-to-list 'company-backends 'company-lsp))
+
 ;;;; Lisp
 
 ;; The packages Lispy and Lispyville are, in my opinion, the ultimate pairing
