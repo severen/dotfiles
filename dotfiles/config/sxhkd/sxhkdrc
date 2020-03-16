@@ -10,6 +10,10 @@ super + Return
 super + @space
   rofi -show drun
 
+# Volume Keys
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+  pulseaudio-ctl {up,down,mute}
+
 # Make sxhkd reload its configuration files.
 super + Escape
   pkill -USR1 -x sxhkd
