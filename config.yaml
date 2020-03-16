@@ -55,6 +55,9 @@ dotfiles:
     src: config/bspwm/bspwmrc
     dst: ~/.config/bspwm/bspwmrc
     link: link
+  f_polybar_config:
+    src: config/polybar/config
+    dst: ~/.config/polybar/config
   f_systemd_sxhkd.service:
     src: config/systemd/user/sxhkd.service
     dst: ~/.config/systemd/user/sxhkd.service
@@ -119,6 +122,7 @@ profiles:
     - f_systemd_ssh-agent.service
     - f_systemd_picom.service
     - f_bspwm_bspwmrc
+    - f_polybar_config
     - f_systemd_sxhkd.service
     - f_systemd_polybar.service
     - f_systemd_xbanish.service

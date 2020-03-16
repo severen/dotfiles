@@ -1,0 +1,124 @@
+[settings]
+screenchange-reload = true
+
+[colors]
+primary = #73d0ff
+secondary = #f28779
+alert = #ff3333
+separator = #d4bfff
+background = #212733
+background-alt = #272D38
+foreground = #DFDFDF
+foreground-alt = #738699
+
+[bar/main]
+{%@@ if profile == "phoebus" @@%}
+monitor = DP-0
+{%@@ endif @@%}
+# Without this the bar will be drawn over full-screen programs.
+wm-restack = bspwm
+
+{%@@ if profile == "phoebus" @@%}
+modules-left = workspaces network
+modules-right = audio temperature filesystem date
+{%@@ endif @@%}
+
+width = 100%
+height = 26
+bottom = false
+line-size = 4
+padding-right = 1
+
+font-0 = Fira Code:pixelsize=10;1
+font-1 = Material Icons:pixelsize=12;3
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+separator = %{F#d4bfff}|%{F-}
+
+module-margin-left = 1
+module-margin-right = 1
+
+tray-position = right
+tray-padding = 1
+
+fixed-center = false
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/workspaces]
+type = internal/bspwm
+
+label-focused-underline = ${colors.primary}
+label-occupied-underline = ${colors.secondary}
+
+[module/network]
+type = internal/network
+
+{%@@ if profile == "phoebus" @@%}
+interface = eno1
+
+label-connected = %{F#73d0ff}%{F-} %ifname% %local_ip% (%{F#d4bfff}%{F-}%upspeed% %{F#d4bfff}%{F-}%downspeed%)
+label-disconnected = %{F#f28779}%{F-} %{F#738699}<not connected>%{F-}
+{%@@ endif @@%}
+
+[module/audio]
+type = internal/pulseaudio
+
+format-volume = %{F#73d0ff}<ramp-volume>%{F-} <label-volume>
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+label-muted = %{F#f28779}%{F-} 0%
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+
+label = %{F#73d0ff}%{F-} %percentage%%
+
+[module/battery0]
+type = internal/battery
+battery = BAT0
+adapter = AC
+
+label-discharging = %{F#f28779}%{F-} %percentage%% (BAT0)
+label-charging = %{F#73d0ff}%{F-} %percentage%% (BAT0)
+label-full = %{F#73d0ff}%{F-} (BAT1)
+
+[module/battery1]
+type = internal/battery
+battery = BAT1
+adapter = AC
+
+label-discharging = %{F#f28779}%{F-} %percentage%% (BAT1)
+label-charging = %{F#73d0ff}%{F-} %percentage%% (BAT1)
+label-full = %{F#73d0ff}%{F-} (BAT1)
+
+[module/temperature]
+type = internal/temperature
+
+label = %{F#73d0ff}%{F-} %temperature-c%
+label-warn = %{F#f28779}%{F-} %temperature-c%
+
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+interval = 25
+
+label-mounted = %{F#73d0ff}%{F-} %percentage_used%% of %total% (%{F#d4bfff}%mountpoint%%{F-})
+label-unmounted = <%mountpoint% not mounted>
+label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+
+date = %Y-%m-%d%
+date-alt = %A, %d %B %Y
+time = %H:%M
+time-alt = %I:%M %p
+
+label = %date% %time%
