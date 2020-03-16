@@ -761,6 +761,37 @@ For documentation on the type of line numbers used, see
 (use-package company-prescient
   :hook (company-mode . company-prescient-mode))
 
+;;;; Checking
+
+(use-package flycheck
+  :hook ((emacs-lisp-mode haskell-mode lsp-mode) . flycheck-mode)
+  :init
+  ;; Disable automatically checking after a newline is inserted. This should
+  ;; make Emacs feel snappier.
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+  :config
+  (with-eval-after-load 'evil
+    ;; Check the buffer when entering normal state.
+    (defhook! my//flycheck-buffer () evil-normal-state-entry-hook
+      "Check the current buffer with Flycheck if enabled."
+      (when flycheck-mode
+        (ignore-errors (flycheck-buffer)) nil))
+
+    ;; Increase responsiveness by increasing the idle time to a higher value in
+    ;; insert state.
+    (defhook! my//flycheck-slower () evil-insert-state-entry-hook
+      "Set `flycheck-idle-change-delay' to a higher value."
+      (when flycheck-mode
+        (setq flycheck-idle-change-delay 1.5)))
+
+    (defhook! my//flycheck-faster () evil-insert-state-exit-hook
+      "Set `flycheck-idle-change-delay' back to default."
+      (when flycheck-mode
+        (setq flycheck-idle-change-delay (default-value 'flycheck-idle-change-delay))))))
+
+;; TODO: Evaluate replacing this with flycheck-posframe.
+(use-package flycheck-inline :hook (flycheck-mode . flycheck-inline-mode))
+
 ;;;; EditorConfig
 
 ;; EditorConfig enables cross-editor, per-project settings for things such as
@@ -771,8 +802,8 @@ For documentation on the type of line numbers used, see
   :defer t
   :init
   (defhook-t! my//enable-editorconfig-mode () find-file-hook
-      "Enable `editorconfig-mode'."
-      (editorconfig-mode 1)))
+    "Enable `editorconfig-mode'."
+    (editorconfig-mode 1)))
 
 ;;; Language Support
 ;;;; Lisp
