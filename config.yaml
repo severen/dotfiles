@@ -110,6 +110,10 @@ dotfiles:
     src: config/zathura/zathurarc
     dst: ~/.config/zathura/zathurarc
     link: link
+  f_bin_kbtoggle:
+    src: local/bin/kbtoggle
+    dst: ~/.local/bin/kbtoggle
+    link: link
 profiles:
   phoebus:
     dotfiles:
@@ -140,3 +144,4 @@ profiles:
     - f_mpv_mpv.conf
     - f_mpv_input.conf
     - f_zathura_zathurarc
+    - f_bin_kbtoggle
