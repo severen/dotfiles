@@ -20,7 +20,7 @@ wm-restack = bspwm
 
 {%@@ if profile == "phoebus" @@%}
 modules-left = workspaces network
-modules-right = audio temperature filesystem date
+modules-right = audio temperature filesystem keyboard date
 {%@@ endif @@%}
 
 width = 100%
@@ -52,6 +52,17 @@ type = internal/bspwm
 
 label-focused-underline = ${colors.primary}
 label-occupied-underline = ${colors.secondary}
+
+[module/keyboard]
+type = internal/xkeyboard
+
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+format = <label-layout>
+format-spacing = 0
+
+label-layout = %{F#73d0ff} %{F-}%layout%
 
 [module/network]
 type = internal/network
