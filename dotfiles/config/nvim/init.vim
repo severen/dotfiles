@@ -30,9 +30,8 @@ Plug 'andymass/vim-matchup'
 Plug 'editorconfig/editorconfig-vim'
 " }}}
 
-" Completion, Snippets, and Diagnostics {{{
+" Completion and Diagnostics {{{
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'SirVer/ultisnips'
 Plug 'autozimu/LanguageClient-neovim', {
   \ 'branch': 'next',
   \ 'do': 'bash install.sh',
@@ -217,7 +216,7 @@ augroup END
 
 " }}}
 
-" Completion, Snippets, and Diagnostics {{{
+" Completion and Diagnostics {{{
 
 " TODO: Rebind gd and others to use a language server _only_ when available.
 let g:LanguageClient_serverCommands = {
@@ -231,8 +230,7 @@ nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
-" Completion {{{
-
+" Enable deoplete.
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option({
   \ 'smart_case': 1,
@@ -249,11 +247,6 @@ imap <c-x><c-k> <Plug>(fzf-complete-word)
 imap <c-x><c-f> <Plug>(fzf-complete-path)
 imap <c-x><c-j> <Plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <Plug>(fzf-complete-line)
-
-" }}}
-
-" Change snippet directory
-let g:UltiSnipsSnippetDirectories=["ultisnips"]
 
 " }}}
 
