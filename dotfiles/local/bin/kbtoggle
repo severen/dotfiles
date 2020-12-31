@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-current=$(setxkbmap -print | awk -F '+' '/xkb_symbols/ {print $2}')
+current=$(setxkbmap -print | awk -F "+" "/xkb_symbols/ { print $2 }")
 
-if [[ $current == us ]]; then
+if [[ $current == "us" ]]; then
   setxkbmap no
   notify-send "Layout switched to NO."
 else
