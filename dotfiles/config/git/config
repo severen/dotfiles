@@ -6,6 +6,9 @@
 [github]
   user = severen
 
+[init]
+  defaultBranch = master
+
 [push]
   default = simple
 
