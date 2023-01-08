@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# This script converts PDF files and regenerates them through GhostScript to /hopefully/
+# correct any errors and reduce the file size.
+#
+# TODO: Generate PDF/A files.
+
+if ! [[ -x $(command -v gs) ]]; then
+  {
+    echo "Error: the gs command was not found!"
+    echo "Please ensure that GhostScript is installed."
+  } >&2
+  exit 1
+fi
+
+gs \
+  -sOutputFile="$2" \
+  -sDEVICE="pdfwrite" \
+  -sColorConversionStrategy="RGB" \
+  -dCompatibilityLevel=1.7 \
+  -dFastWebView \
+  -dPDFSETTINGS/ebook \
+  -dNOPAUSE \
+  -dBATCH \
+  -dQUIET \
+  "$1"
+
+# vim: ft=bash
