@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Simple wrapper script around man that opens man pages in either Neovim or Vim.
+
+if [[ $# == 0 ]]; then
+  echo "What manual page do you want?"
+  echo "For example, try 'vman man'."
+  exit 0
+elif ! man -w "$@" > /dev/null; then
+  # Exit early if the manual page does not exist in order to avoid visual noise from
+  # opening Neovim.
+  exit 1
+fi
+
+if [[ -x $(command -v nvim) ]]; then
+  nvim -c "SuperMan $*"
+elif [[ -x $(command -v vim) ]]; then
+  vim -c "SuperMan $*"
+else
+  echo "Neither NeoVim nor Vim are installed!"
+  exit 2
+fi
