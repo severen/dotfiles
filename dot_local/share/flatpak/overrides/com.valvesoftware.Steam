@@ -1,0 +1,6 @@
+[Context]
+filesystems=xdg-config/MangoHud:ro;
+
+[Environment]
+MANGOHUD=1
+MANGOHUD_DLSYM=1
