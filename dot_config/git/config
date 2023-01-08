@@ -1,0 +1,43 @@
+[core]
+  pager = delta
+
+[user]
+  email = me@severen.dev
+  name = Severen Redwood
+
+[init]
+  # Cancelled!
+  defaultBranch = master
+
+[alias]
+  tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+[push]
+  default = upstream
+  autoSetupRemote = true
+
+[pull]
+  rebase = true
+
+[diff]
+  colorMoved = default
+
+[merge]
+  conflictStyle = diff3
+
+[interactive]
+  diffFilter = delta --hyperlinks --color-only
+
+[add.interactive]
+  useBuiltin = false
+
+[delta]
+  navigate = true
+  features = line-numbers decorations
+  whitespace-error-style = 22 reverse
+  syntax-theme = Catppuccin-mocha
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
