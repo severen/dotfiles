@@ -1,0 +1,75 @@
+# shellcheck shell=bash
+
+# These do not need to be explicitly set, but they are useful to reference here
+# and in scripts.
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# Here I try to wrangle misbehaving programs into complying with the XDG
+# base directories standard. A lot of these environment variables simply move the
+# program's catch-all directories from $HOME to $XDG_DATA_HOME, which while not _entirely_
+# standards compliant, at least cleans up $HOME.
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+# TODO: Revisit GHCup/GHC/Cabal since it seems that they are transitioning to XDG by
+#       default.
+export GHCUP_USE_XDG_DIRS="yes"
+# export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
+# export CABAL_DIR="$XDG_CACHE_HOME/cabal"
+export STACK_ROOT="$XDG_DATA_HOME/stack"
+export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export PYLINTHOME="$XDG_CACHE_HOME/pylint"
+export TEXMFCONFIG="$XDG_CONFIG_HOME/texlive"
+export TEXMFVAR="$XDG_CACHE_HOME/texlive"
+export LESSHISTFILE="$XDG_DATA_HOME/less/history"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node/history"
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+# One could argue that this should be in $XDG_CONFIG_HOME, but as far as I can tell,
+# these files are generated in a machine-specific way.
+export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_DATA_HOME/java"
+
+# Add the XDG BaseDir bin directory and the Cargo bin directory to $PATH.
+export PATH="$HOME/.local/bin:$CARGO_HOME/bin:$PATH"
+
+# Set Neovim as the default editor and diff viewer.
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
+export DIFFPROG="nvim -d"
+
+# Direct programs that expect a Docker daemon socket to Podman's compatibile stand-in.
+export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+
+# Wire up the SSH agent for persisting SSH credentials.
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# Tell VDPAU to use the correct driver for each of my machines.
+if [[ "$HOSTNAME" == "baldr" ]]; then
+  export VDPAU_DRIVER="radeonsi"
+elif [[ "$HOSTNAME" == "prometheus" ]]; then
+  export VDPAU_DRIVER="va_gl"
+fi
+
+if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+  # Make GTK applications use the file dialog (and other things) that is native to the
+  # current desktop environment. For more information, see the XDG Portals specification.
+  export GTK_USE_PORTAL=1
+  # Opt in to Wayland mode for Firefox.
+  export MOZ_ENABLE_WAYLAND=1
+fi
+
+# Improve font rendering in Java applications.
+export _JAVA_OPTIONS="$_JAVA_OPTIONS -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+
+# TODO: Evaluate whether this is required under Plasma + Bismuth.
+# Fix the behaviour of Java applications when using a tiling window manager.
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Source ~/.bashrc if it exists.
+# shellcheck source=/home/severen/.bashrc
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+# vim: ft=bash

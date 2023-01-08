@@ -1,0 +1,63 @@
+# shellcheck shell=bash
+
+# If not running interactively, don't do anything.
+[[ $- != *i* ]] && return
+
+# Set the Linux console colour scheme to Catpuccin Mocha.
+if [[ "$TERM" = "linux" ]]; then
+  printf %b "\e]P01E1E2E" # background color to "Base"
+  printf %b "\e]P8585B70" # bright black to "Surface2"
+
+  printf %b "\e]P7BAC2DE" # text color to "Text"
+  printf %b "\e]PFA6ADC8" # bright white to "Subtext0"
+
+  printf %b "\e]P1F38BA8" # red to "Red"
+  printf %b "\e]P9F38BA8" # bright red to "Red"
+
+  printf %b "\e]P2A6E3A1" # green to "Green"
+  printf %b "\e]PAA6E3A1" # bright green to "Green"
+
+  printf %b "\e]P3F9E2AF" # yellow to "Yellow"
+  printf %b "\e]PBF9E2AF" # bright yellow to "Yellow"
+
+  printf %b "\e]P489B4FA" # blue to "Blue"
+  printf %b "\e]PC89B4FA" # bright blue to "Blue"
+
+  printf %b "\e]P5F5C2E7" # magenta to "Pink"
+  printf %b "\e]PDF5C2E7" # bright magenta to "Pink"
+
+  printf %b "\e]P694E2D5" # cyan to "Teal"
+  printf %b "\e]PE94E2D5" # bright cyan to "Teal"
+
+  clear
+fi
+
+# Only switch to Fish if:
+#   + Fish is present in $PATH.
+#   + Fish is not the parent process.
+#   + We are not already in an interactive Bash shell.
+if command -v fish &> /dev/null &&
+  [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" ]] &&
+  [[ ! $NO_FISH ]]
+then
+  exec fish
+else
+  export NO_FISH=true
+fi
+
+if [[ ! -d "$XDG_DATA_HOME/bash" ]]; then
+  mkdir "$XDG_DATA_HOME/bash"
+fi
+HISTFILE="$XDG_DATA_HOME/bash/history"
+
+PS1="[\u@\h \W]\$ "
+
+if command -v exa &> /dev/null; then
+  alias ls="exa --color=auto --classify --group-directories-first"
+  alias lsx="exa --color=auto --classify --long --header --group --git --group-directories-first"
+  alias tree="exa --color=auto --classify --git-ignore --tree"
+else
+  alias ls="ls --color=auto"
+fi
+
+# vim: ft=bash
