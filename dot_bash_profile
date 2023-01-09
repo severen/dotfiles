@@ -40,8 +40,8 @@ export EDITOR="nvim"
 export VISUAL="$EDITOR"
 export DIFFPROG="nvim -d"
 
-# Enable mouse support and incremental search in less.
-export LESS="--mouse --incsearch"
+# Enable mouse support and incremental search with smart case in less.
+export LESS="--mouse --incsearch --ignore-case"
 
 # Direct programs that expect a Docker daemon socket to Podman's compatibile stand-in.
 export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
