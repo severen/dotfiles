@@ -30,13 +30,14 @@ if status is-interactive
   alias fgrep "fgrep --color=auto"
   alias egrep "egrep --color=auto"
 
-  # Make the OCaml top level less painful to use.
-  alias ocaml "rlwrap ocaml"
-  alias coqtop "rlwrap coqtop"
-  # The same for Clojure's REPL...
-  alias clojure "rlwrap clojure"
-  # And Guile..........
-  alias guile "rlwrap guile"
+  # Make the {OCaml,Coq,Clojure,Guile,SBCL} REPL less painful to use.
+  if command -s rlwrap &> /dev/null
+    command -s ocaml &> /dev/null; and alias ocaml "rlwrap ocaml"
+    command -s sbcl &> /dev/null; and alias coqtop "rlwrap coqtop"
+    command -s sbcl &> /dev/null; and alias clojure "rlwrap clojure"
+    command -s sbcl &> /dev/null; and alias guile "rlwrap guile"
+    command -s sbcl &> /dev/null; and alias sbcl "rlwrap sbcl"
+  end
 
   if command -s exa &> /dev/null
     alias ls "exa --color=auto --classify --group-directories-first"
