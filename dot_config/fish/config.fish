@@ -16,26 +16,62 @@ if status is-interactive
   abbr --add --global mv "mv -vn"
   abbr --add --global mvi "mv -vi"
 
+  abbr --add --global e "$VISUAL"
+
+  # Git (modelled after the Magit keybindings)
+  abbr --add --global g "git"
+  abbr --add --global ga "git add"
+  abbr --add --global gC "git clone"
+  abbr --add --global gF "git pull"
+  abbr --add --global gI "git init"
+  abbr --add --global gM "git remote"
+  abbr --add --global gO "git subtree"
+  abbr --add --global gP "git push"
+  abbr --add --global gS "git switch"
+  abbr --add --global gV "git revert"
+  abbr --add --global gX "git reset"
+  abbr --add --global gb "git branch"
+  abbr --add --global gc "git commit"
+  abbr --add --global gd "git diff"
+  abbr --add --global gf "git fetch"
+  abbr --add --global gl "git log"
+  abbr --add --global gm "git merge"
+  abbr --add --global go "git submodule"
+  abbr --add --global gr "git rebase"
+  abbr --add --global gs "git status"
+  abbr --add --global gt "git tag"
+  abbr --add --global gz "git stash"
+
+  # Chezmoi
+  abbr --add --global cm "chezmoi"
+  abbr --add --global cma "chezmoi apply"
+  abbr --add --global cmc "chezmoi cd"
+  abbr --add --global cme "chezmoi edit --apply"
+
+  # systemd
+  abbr --add --global sctl "systemctl"
   abbr --add --global zzz "systemctl suspend"
 
   if command -s exa &> /dev/null
-    alias ls "exa --color=auto --classify --group-directories-first"
-    alias lsx "exa --color=auto --classify --long --header --group --git --group-directories-first"
-    alias tree "exa --color=auto --classify --git-ignore --tree"
+    set cmd "exa --color=auto --classify --group-directories-first" 
+    alias ls $cmd
+    alias lx "$cmd --long --header --group --git"
+    alias la "$cmd --all --long --header --group --git"
+    alias tree "$cmd --git-ignore --tree"
   else
     echo "Note: exa is not installed"
-    alias ls "ls --color=auto"
-    alias lsx "ls --color=auto --long"
+
+    set cmd "ls --color=auto --classify --group-directories-first"
+    alias ls $cmd
+    alias lx "$cmd -l --author --human-readable"
   end
 
   alias grep "grep --color=auto"
   alias fgrep "fgrep --color=auto"
   alias egrep "egrep --color=auto"
 
-  alias edit "eval $EDITOR"
-  alias view "nvim -R"
   alias serve "python -m http.server"
-  alias lookbusy "cat /dev/urandom | hexdump -C | grep --color \"ca fe\""
+  alias lookbusy "cat /dev/urandom | hexdump -C | rg \"ca fe\""
 
   # Make REPLs without line editing functionality less painful to use.
   if command -s rlwrap &> "/dev/null"
