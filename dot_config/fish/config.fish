@@ -18,31 +18,42 @@ if status is-interactive
 
   abbr --add --global zzz "systemctl suspend"
 
-  alias edit "eval $EDITOR"
-  alias view "nvim -R"
-  alias icat "kitty icat"
-  alias lookbusy "cat /dev/urandom | hexdump -C | grep --color \"ca fe\""
-  alias serve "python -m http.server"
-
-  alias ls "ls --color=auto"
-  alias lsx "ls --color=auto --long"
-  alias grep "grep --color=auto"
-  alias fgrep "fgrep --color=auto"
-  alias egrep "egrep --color=auto"
-
-  # Make the {OCaml,Coq,Clojure,Guile,SBCL} REPL less painful to use.
-  if command -s rlwrap &> /dev/null
-    command -s ocaml &> /dev/null; and alias ocaml "rlwrap ocaml"
-    command -s sbcl &> /dev/null; and alias coqtop "rlwrap coqtop"
-    command -s sbcl &> /dev/null; and alias clojure "rlwrap clojure"
-    command -s sbcl &> /dev/null; and alias guile "rlwrap guile"
-    command -s sbcl &> /dev/null; and alias sbcl "rlwrap sbcl"
-  end
-
   if command -s exa &> /dev/null
     alias ls "exa --color=auto --classify --group-directories-first"
     alias lsx "exa --color=auto --classify --long --header --group --git --group-directories-first"
     alias tree "exa --color=auto --classify --git-ignore --tree"
+  else
+    echo "Note: exa is not installed"
+    alias ls "ls --color=auto"
+    alias lsx "ls --color=auto --long"
+  end
+
+  alias grep "grep --color=auto"
+  alias fgrep "fgrep --color=auto"
+  alias egrep "egrep --color=auto"
+
+  alias edit "eval $EDITOR"
+  alias view "nvim -R"
+  alias serve "python -m http.server"
+  alias lookbusy "cat /dev/urandom | hexdump -C | grep --color \"ca fe\""
+
+  # Make REPLs without line editing functionality less painful to use.
+  if command -s rlwrap &> "/dev/null"
+    function wrap
+      set cmd $argv[1]
+
+      command -s $cmd &> "/dev/null"
+      and alias $cmd "rlwrap --history-filename $XDG_DATA_HOME/rlwrap/$cmd-history $cmd"
+    end
+
+    set cmds ocaml coqtop clojure guile sbcl
+    for cmd in $cmds
+      wrap $cmd
+    end
+
+    functions --erase wrap
+  else
+    echo "Note: rlwrap is not installed"
   end
 
   # Prevent nested ranger instances.
