@@ -17,6 +17,7 @@ if status is-interactive
   abbr --add --global mvi "mv -vi"
 
   abbr --add --global e "$VISUAL"
+  abbr --add --global s "sudo"
 
   # Git (modelled after the Magit keybindings)
   abbr --add --global g "git"
