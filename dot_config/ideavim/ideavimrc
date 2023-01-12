@@ -1,0 +1,17 @@
+set surround
+set commentary
+set easymotion
+
+set incsearch
+set highlightedyank
+
+set clipboard=unnamedplus
+
+set scrolloff=4
+
+set number
+set relativenumber
+
+set ideajoin
+
+map <leader>z <Action>(ToggleDistractionFreeMode)
