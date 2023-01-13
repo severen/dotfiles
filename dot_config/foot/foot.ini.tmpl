@@ -1,4 +1,8 @@
+{{ if eq .chezmoi.hostname "baldr" }}
+font = monospace:size=10
+{{ else if eq .chezmoi.hostname "prometheus" }}
 font = monospace:size=7.5
+{{ end }}
 
 [mouse]
 hide-when-typing = yes
