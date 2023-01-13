@@ -126,6 +126,16 @@ require("lazy").setup({
       g.matchup_matchparen_offscreen = {method = "status_manual"}
     end,
   },
+  {
+    "ggandor/leap.nvim",
+    name = "leap",
+    -- TODO: Also figure out why this is not working.
+    setup = function()
+      require("leap").add_default_mappings()
+    end,
+  },
+  {"ggandor/leap-spooky.nvim", name = "leap-spooky", setup = true},
+  {"ggandor/flit.nvim", name = "flit", setup = true},
   -- }}}
 
   -- {{{ Completion and Diagnostics
@@ -240,6 +250,10 @@ vim.opt.showmode = false
 -- Set the global leader to SPC and the local leader to SPC m.
 g.mapleader = " "
 g.maplocalleader = " m"
+
+-- TODO: Remove when I figure out why this is not being set up properly by
+--       the plugin manager.
+require("which-key").setup()
 
 map("n", "<leader><leader>", ":", {desc = "Run Ex command"})
 map("n", "<leader>q", ":qa<CR>", {desc = "Quit"})
@@ -365,6 +379,8 @@ map("i", "<C-BS>", "<C-w>")
 require("mini.ai").setup()
 require("mini.comment").setup()
 require("nvim-surround").setup()
+require("leap").add_default_mappings()
+require("flit").setup()
 
 -- Display invisible characters.
 opt.list = true
