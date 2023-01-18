@@ -16,6 +16,12 @@ local function map(mode, lhs, rhs, options)
   )
 end
 
+-- Minimal configuration for VS Code.
+if vim.g.vscode then
+  require("config-vscode")
+  return
+end
+
 -- Bootstrap the plugin manager.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
