@@ -216,6 +216,7 @@ require("lazy").setup({
     end
   },
   {"nvim-treesitter/playground", cmd = "TSPlaygroundToggle"},
+  {"Shirk/vim-gas"},
   {"lervag/vimtex", ft = "tex"},
   {
     "nvim-neorg/neorg",
