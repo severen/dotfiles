@@ -93,6 +93,10 @@ if status is-interactive
     echo "Note: rlwrap is not installed"
   end
 
+  if command -s chez &> "/dev/null"
+    alias chez "chez --eehistory $XDG_DATA_HOME/chez/history"
+  end
+
   # Prevent nested ranger instances.
   function ranger
     if not set -q RANGER_LEVEL
