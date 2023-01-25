@@ -11,8 +11,12 @@ local api = vim.api
 -- Add a more convenient way of creating key bindings.
 local function map(mode, lhs, rhs, options)
   local base_options = { noremap = true, silent = true }
-  vim.keymap.set(mode, lhs, rhs,
-    not options and base_options or vim.tbl_extend("force", base_options, options)
+  vim.keymap.set(
+    mode,
+    lhs,
+    rhs,
+    not options and base_options
+      or vim.tbl_extend("force", base_options, options)
   )
 end
 
@@ -60,7 +64,7 @@ local lazy_config = {
 
 require("lazy").setup({
   -- {{{ Libraries
-  {"nvim-lua/plenary.nvim", name = "plenary"},
+  { "nvim-lua/plenary.nvim", name = "plenary" },
   -- }}}
 
   -- {{{ Visuals
@@ -77,7 +81,7 @@ require("lazy").setup({
     "nvim-lualine/lualine.nvim",
     name = "lualine",
     event = "VeryLazy",
-    dependencies = {"kyazdani42/nvim-web-devicons"},
+    dependencies = { "kyazdani42/nvim-web-devicons" },
     opts = {
       options = {
         theme = "catppuccin",
@@ -86,13 +90,13 @@ require("lazy").setup({
       },
     },
   },
-  {"stevearc/dressing.nvim", name = "dressing", event = "VeryLazy"},
+  { "stevearc/dressing.nvim", name = "dressing", event = "VeryLazy" },
   -- }}}
 
   -- {{{ Interface
-  {"folke/which-key.nvim", name = "which-key", setup = true},
-  {"Lokaltog/neoranger", cmd = {"Ranger", "RangerCurrentFile"}},
-  {"simnalamburt/vim-mundo", cmd = {"MundoShow", "MundoToggle"}},
+  { "folke/which-key.nvim", name = "which-key", setup = true },
+  { "Lokaltog/neoranger", cmd = { "Ranger", "RangerCurrentFile" } },
+  { "simnalamburt/vim-mundo", cmd = { "MundoShow", "MundoToggle" } },
   {
     "lewis6991/gitsigns.nvim",
     name = "gitsigns",
@@ -103,20 +107,20 @@ require("lazy").setup({
     "folke/todo-comments.nvim",
     name = "todo-comments",
     event = "VeryLazy",
-    config = true
+    config = true,
   },
   {
     "NvChad/nvim-colorizer.lua",
     name = "colorizer",
     event = "VeryLazy",
-    opts = {filetypes = {"html", "css", "javascript", "typescript"}},
+    opts = { filetypes = { "html", "css", "javascript", "typescript" } },
   },
-  {"rcarriga/nvim-notify", name = "notify", event = "VeryLazy"},
-  {"folke/noice.nvim", event = "VeryLazy" },
+  { "rcarriga/nvim-notify", name = "notify", event = "VeryLazy" },
+  { "folke/noice.nvim", event = "VeryLazy" },
   -- }}}
 
   -- {{{ Editing
-  {"editorconfig/editorconfig-vim"},
+  { "editorconfig/editorconfig-vim" },
   {
     "tmsvg/pear-tree",
     event = "InsertEnter",
@@ -127,13 +131,13 @@ require("lazy").setup({
     end,
   },
   -- TODO: Figure out why these three plugins are not loading correctly.
-  {"echasnovski/mini.ai", setup = true},
-  {"echasnovski/mini.comment", setup = true},
-  {"kylechui/nvim-surround", setup = true},
+  { "echasnovski/mini.ai", setup = true },
+  { "echasnovski/mini.comment", setup = true },
+  { "kylechui/nvim-surround", setup = true },
   {
     "andymass/vim-matchup",
     config = function()
-      g.matchup_matchparen_offscreen = {method = "status_manual"}
+      g.matchup_matchparen_offscreen = { method = "status_manual" }
     end,
   },
   {
@@ -144,8 +148,8 @@ require("lazy").setup({
       require("leap").add_default_mappings()
     end,
   },
-  {"ggandor/leap-spooky.nvim", name = "leap-spooky", setup = true},
-  {"ggandor/flit.nvim", name = "flit", setup = true},
+  { "ggandor/leap-spooky.nvim", name = "leap-spooky", setup = true },
+  { "ggandor/flit.nvim", name = "flit", setup = true },
   -- }}}
 
   -- {{{ Completion and Diagnostics
@@ -170,7 +174,7 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     config = function()
-      require("nvim-treesitter.configs").setup {
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "bash",
           "bibtex",
@@ -212,30 +216,33 @@ require("lazy").setup({
           "vim",
           "wgsl",
         },
-        highlight = {enable = true, additional_vim_regex_highlighting = false},
-        indent = {enable = true},
-        matchup = {enable = true},
-        playground = {enable = true},
-      }
-    end
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+        indent = { enable = true },
+        matchup = { enable = true },
+        playground = { enable = true },
+      })
+    end,
   },
-  {"nvim-treesitter/playground", cmd = "TSPlaygroundToggle"},
-  {"Shirk/vim-gas"},
-  {"lervag/vimtex", ft = "tex"},
+  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
+  { "Shirk/vim-gas" },
+  { "lervag/vimtex", ft = "tex" },
   {
     "nvim-neorg/neorg",
     ft = "norg",
     config = function()
-      require("neorg").setup {
+      require("neorg").setup({
         load = {
           ["core.defaults"] = {},
           ["core.norg.concealer"] = {},
           ["core.norg.completion"] = {
-            config = {engine = "nvim-cmp"},
+            config = { engine = "nvim-cmp" },
           },
           ["core.integrations.nvim-cmp"] = {},
         },
-      }
+      })
     end,
   },
   -- }}}
@@ -251,13 +258,13 @@ vim.opt.termguicolors = true
 -- Make the background transparent.
 api.nvim_create_autocmd("ColorScheme", {
   callback = function()
-    cmd [[highlight Normal ctermbg=none guibg=none]]
-    cmd [[highlight NonText ctermbg=none guibg=none]]
+    cmd([[highlight Normal ctermbg=none guibg=none]])
+    cmd([[highlight NonText ctermbg=none guibg=none]])
   end,
 })
 
 -- Load my default colorscheme of choice.
-vim.cmd [[colorscheme catppuccin]]
+vim.cmd([[colorscheme catppuccin]])
 
 -- The current mode is already displayed in the status line (by Lualine).
 vim.opt.showmode = false
@@ -274,12 +281,12 @@ g.maplocalleader = " m"
 --       the plugin manager.
 require("which-key").setup()
 
-map("n", "<leader><leader>", ":", {desc = "Run Ex command"})
-map("n", "<leader>q", ":qa<CR>", {desc = "Quit"})
-map("n", "<leader>Q", ":qa<CR>", {desc = "Force quit"})
+map("n", "<leader><leader>", ":", { desc = "Run Ex command" })
+map("n", "<leader>q", ":qa<CR>", { desc = "Quit" })
+map("n", "<leader>Q", ":qa<CR>", { desc = "Force quit" })
 
 -- Disable arrow keys in normal/visual mode so that I can break the habit.
-for _, direction in ipairs({"up", "down", "left", "right"}) do
+for _, direction in ipairs({ "up", "down", "left", "right" }) do
   map("", "<" .. direction .. ">", "<nop>")
 end
 
@@ -312,10 +319,10 @@ opt.sidescrolloff = 4
 opt.number = true
 opt.relativenumber = true
 
--- More specifically, use relative line numbers in normal mode and absolute line numbers
--- in insert mode.
+-- More specifically, use relative line numbers in normal mode and absolute line
+-- numbers in insert mode.
 api.nvim_create_augroup("LineNumbers", {})
-api.nvim_create_autocmd({"BufEnter", "FocusGained", "InsertLeave", "WinEnter"}, {
+api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
   group = "LineNumbers",
   callback = function()
     if opt.number:get() then
@@ -323,7 +330,7 @@ api.nvim_create_autocmd({"BufEnter", "FocusGained", "InsertLeave", "WinEnter"}, 
     end
   end,
 })
-api.nvim_create_autocmd({"BufLeave", "FocusLost", "InsertEnter", "WinLeave"}, {
+api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
   group = "LineNumbers",
   callback = function()
     if opt.number:get() then
@@ -339,19 +346,19 @@ api.nvim_create_autocmd("TermOpen", {
     opt_local.relativenumber = false
 
     -- Default to insert mode in the integrated terminal.
-    cmd [[startinsert]]
+    cmd([[startinsert]])
   end,
 })
 
 -- Highlight the line the cursor is on in the currently active buffer.
 api.nvim_create_augroup("CursorLine", {})
-api.nvim_create_autocmd({"VimEnter", "WinEnter", "BufWinEnter"}, {
+api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
   group = "CursorLine",
   callback = function()
     opt_local.cursorline = true
   end,
 })
-api.nvim_create_autocmd({"WinLeave"}, {
+api.nvim_create_autocmd({ "WinLeave" }, {
   group = "CursorLine",
   callback = function()
     opt_local.cursorline = false
@@ -385,7 +392,7 @@ opt.expandtab = true -- use spaces, not tab characters
 -- Use 80 characters as the maximum line length.
 local text_width = 80
 opt.textwidth = text_width
-opt.colorcolumn = {text_width + 1}
+opt.colorcolumn = { text_width + 1 }
 
 -- Delete a level of indentation with Shift+Tab.
 map("i", "<S-Tab>", "<C-d>")
@@ -415,14 +422,14 @@ opt.listchars = {
 opt.undofile = true
 
 -- TODO: Replace with a ctrl+y binding for yank to clipboard.
-opt.clipboard:append { "unnamedplus" }
+opt.clipboard:append({ "unnamedplus" })
 
 -- }}}
 
 -- {{{ Completion and Diagnostics
 
 -- Use British English and New Zealand English dictionaries for spell checking.
-opt.spelllang = {"en_gb", "en_nz"}
+opt.spelllang = { "en_gb", "en_nz" }
 
 -- Enable spell checking.
 opt.spell = true

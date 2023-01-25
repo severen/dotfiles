@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 
 function scheme_for_appearance(appearance)
-  if appearance:find "Dark" then
+  if appearance:find("Dark") then
     return "Catppuccin Mocha"
   else
     return "Catppuccin Latte"
@@ -14,7 +14,7 @@ return {
     "JetBrains Mono",
     "Noto Color Emoji",
   }),
-  harfbuzz_features = {"zero"},
+  harfbuzz_features = { "zero" },
 
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
   window_background_opacity = 0.90,
