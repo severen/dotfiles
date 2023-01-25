@@ -79,7 +79,11 @@ require("lazy").setup({
     event = "VeryLazy",
     dependencies = {"kyazdani42/nvim-web-devicons"},
     opts = {
-      options = {theme = "catppuccin"},
+      options = {
+        theme = "catppuccin",
+        component_separators = { left = "|", right = "|" },
+        section_separators = { left = "", right = "" },
+      },
     },
   },
   {"stevearc/dressing.nvim", name = "dressing", event = "VeryLazy"},
