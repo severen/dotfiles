@@ -248,6 +248,14 @@ require("lazy").setup({
 -- Use 24-bit colour like it's 1995!
 vim.opt.termguicolors = true
 
+-- Make the background transparent.
+api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    cmd [[highlight Normal ctermbg=none guibg=none]]
+    cmd [[highlight NonText ctermbg=none guibg=none]]
+  end,
+})
+
 -- Load my default colorscheme of choice.
 vim.cmd [[colorscheme catppuccin]]
 
