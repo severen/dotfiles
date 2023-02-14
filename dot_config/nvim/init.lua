@@ -1,5 +1,11 @@
 -- Preamble {{{
 
+-- Minimal configuration for VS Code.
+if vim.g.vscode then
+  require("config-vscode")
+  return
+end
+
 -- Alias some interfaces for brevity.
 local g = vim.g
 local go = vim.go
@@ -18,12 +24,6 @@ local function map(mode, lhs, rhs, options)
     not options and base_options
       or vim.tbl_extend("force", base_options, options)
   )
-end
-
--- Minimal configuration for VS Code.
-if vim.g.vscode then
-  require("config-vscode")
-  return
 end
 
 -- Bootstrap the plugin manager.
