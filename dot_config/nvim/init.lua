@@ -40,6 +40,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Set the global leader to SPC and the local leader to SPC m.
+g.mapleader = " " -- NOTE: Must be set before specifying plugins.
+g.maplocalleader = " m"
+
 -- }}}
 
 -- {{{ Plugins
@@ -271,10 +275,6 @@ vim.opt.showmode = false
 -- }}}
 
 -- Interface {{{
-
--- Set the global leader to SPC and the local leader to SPC m.
-g.mapleader = " "
-g.maplocalleader = " m"
 
 -- TODO: Remove when I figure out why this is not being set up properly by
 --       the plugin manager.
