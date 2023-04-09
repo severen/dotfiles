@@ -120,7 +120,6 @@ require("lazy").setup({
   -- }}}
 
   -- {{{ Editing
-  { "editorconfig/editorconfig-vim" },
   {
     "tmsvg/pear-tree",
     event = "InsertEnter",
