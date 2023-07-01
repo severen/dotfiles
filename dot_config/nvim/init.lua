@@ -321,22 +321,28 @@ opt.relativenumber = true
 -- More specifically, use relative line numbers in normal mode and absolute line
 -- numbers in insert mode.
 api.nvim_create_augroup("LineNumbers", {})
-api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
-  group = "LineNumbers",
-  callback = function()
-    if opt.number:get() then
-      opt.relativenumber = true
-    end
-  end,
-})
-api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
-  group = "LineNumbers",
-  callback = function()
-    if opt.number:get() then
-      opt.relativenumber = false
-    end
-  end,
-})
+api.nvim_create_autocmd(
+  { "BufEnter", "FocusGained", "InsertLeave", "WinEnter" },
+  {
+    group = "LineNumbers",
+    callback = function()
+      if opt.number:get() then
+        opt.relativenumber = true
+      end
+    end,
+  }
+)
+api.nvim_create_autocmd(
+  { "BufLeave", "FocusLost", "InsertEnter", "WinLeave" },
+  {
+    group = "LineNumbers",
+    callback = function()
+      if opt.number:get() then
+        opt.relativenumber = false
+      end
+    end,
+  }
+)
 
 api.nvim_create_autocmd("TermOpen", {
   callback = function()
