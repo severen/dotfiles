@@ -423,6 +423,15 @@ opt.undofile = true
 -- TODO: Replace with a ctrl+y binding for yank to clipboard.
 opt.clipboard:append({ "unnamedplus" })
 
+-- Associate the GLSL filetype with the typical file extensions used for
+-- shaders.
+api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.vert", "*.frag", "*.tesc", "*.geom", "*.comp" },
+  callback = function()
+    opt_local.filetype = "glsl"
+  end,
+})
+
 -- }}}
 
 -- {{{ Completion and Diagnostics
