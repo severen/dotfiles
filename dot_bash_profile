@@ -7,14 +7,14 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-# Here I try to wrangle misbehaving programs into complying with the XDG
-# base directories standard. A lot of these environment variables simply move the
-# program's catch-all directories from $HOME to $XDG_DATA_HOME, which while not _entirely_
-# standards compliant, at least cleans up $HOME.
+# Here I try to wrangle misbehaving programs into complying with the XDG base
+# directories standard. A lot of these environment variables simply move the
+# program's catch-all directories from $HOME to $XDG_DATA_HOME, which while not
+# _entirely_ standards compliant, at least cleans up $HOME.
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-# TODO: Revisit GHCup/GHC/Cabal since it seems that they are transitioning to XDG by
-#       default.
+# TODO: Revisit GHCup/GHC/Cabal since it seems that they are transitioning to
+#       XDG by default.
 export GHCUP_USE_XDG_DIRS="yes"
 # export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
 # export CABAL_DIR="$XDG_CACHE_HOME/cabal"
@@ -28,9 +28,12 @@ export TEXMFVAR="$XDG_CACHE_HOME/texlive"
 export LESSHISTFILE="$XDG_DATA_HOME/less/history"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node/history"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
-# One could argue that this should be in $XDG_CONFIG_HOME, but as far as I can tell,
-# these files are generated in a machine-specific way.
+# One could argue that this should be in $XDG_CONFIG_HOME, but as far as I can
+# tell, these files are generated in a machine-specific way.
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_DATA_HOME/java"
+
+# Set the QMK repository location.
+export QMK_HOME="$HOME/Documents/Code/qmk"
 
 # Add the XDG BaseDir bin directory and the Cargo bin directory to $PATH.
 export PATH="$HOME/.local/bin:$CARGO_HOME/bin:$PATH"
@@ -43,7 +46,8 @@ export DIFFPROG="nvim -d"
 # Enable mouse support and incremental search with smart case in less.
 export LESS="--mouse --incsearch --ignore-case"
 
-# Direct programs that expect a Docker daemon socket to Podman's compatibile stand-in.
+# Direct programs that expect a Docker daemon socket to Podman's compatibile
+# stand-in.
 export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
 # Wire up the SSH agent for persisting SSH credentials.
@@ -57,8 +61,9 @@ elif [[ "$HOSTNAME" == "prometheus" ]]; then
 fi
 
 if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
-  # Make GTK applications use the file dialog (and other things) that is native to the
-  # current desktop environment. For more information, see the XDG Portals specification.
+  # Make GTK applications use the file dialog (and other things) that is native
+  # to the current desktop environment. For more information, see the XDG
+  # Portals specification.
   export GTK_USE_PORTAL=1
   # Opt in to Wayland mode for Firefox.
   export MOZ_ENABLE_WAYLAND=1
