@@ -2,7 +2,7 @@
   pager = delta
 
 [user]
-  email = me@severen.dev
+  email = sev@severen.dev
   name = Severen Redwood
 
 [init]
