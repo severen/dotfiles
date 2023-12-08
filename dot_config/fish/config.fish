@@ -5,8 +5,8 @@ if status is-interactive
   set -x SHELL (command -s fish)
 
   # Set the FZF colour scheme to Catppuccin Mocha.
-  set -x FZF_DEFAULT_OPTS "\
-    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+  set -x FZF_DEFAULT_OPTS \
+   "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
@@ -51,14 +51,14 @@ if status is-interactive
   abbr --add --global sctl "systemctl"
   abbr --add --global zzz "systemctl suspend"
 
-  if command -s exa &> /dev/null
-    set cmd "exa --color=auto --classify --group-directories-first" 
+  if command -s eza &> /dev/null
+    set cmd "eza --color=auto --classify --group-directories-first" 
     alias ls $cmd
     alias lx "$cmd --long --header --group --git"
     alias la "$cmd --all --long --header --group --git"
     alias tree "$cmd --git-ignore --tree"
   else
-    echo "Note: exa is not installed"
+    echo "Note: eza is not installed"
 
     set cmd "ls --color=auto --classify --group-directories-first"
     alias ls $cmd
