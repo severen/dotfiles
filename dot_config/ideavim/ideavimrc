@@ -1,3 +1,5 @@
+let mapleader=" "
+
 set surround
 set commentary
 set easymotion
@@ -5,7 +7,7 @@ set easymotion
 set incsearch
 set highlightedyank
 
-set clipboard=unnamedplus
+set clipboard=unnamedplus,ideaput
 
 set scrolloff=4
 
