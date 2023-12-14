@@ -71,7 +71,6 @@ require("lazy").setup({
     name = "catppuccin",
     priority = 1000,
     config = function()
-      g.catppuccin_flavour = "mocha"
       require("catppuccin").setup()
     end,
   },
@@ -211,6 +210,7 @@ require("lazy").setup({
           "sql",
           "svelte",
           "vim",
+          "vimdoc",
           "wgsl",
         },
         highlight = {
@@ -250,18 +250,18 @@ require("lazy").setup({
 -- Visuals {{{
 
 -- Use 24-bit colour like it's 1995!
-vim.opt.termguicolors = true
+opt.termguicolors = true
 
 -- Make the background transparent.
 api.nvim_create_autocmd("ColorScheme", {
   callback = function()
-    cmd([[highlight Normal ctermbg=none guibg=none]])
-    cmd([[highlight NonText ctermbg=none guibg=none]])
+    cmd.highlight("Normal ctermbg=none guibg=none")
+    cmd.highlight("NonText ctermbg=none guibg=none")
   end,
 })
 
 -- Load my default colorscheme of choice.
-vim.cmd([[colorscheme catppuccin]])
+cmd.colorscheme("catppuccin-mocha")
 
 -- The current mode is already displayed in the status line (by Lualine).
 vim.opt.showmode = false
@@ -345,7 +345,7 @@ api.nvim_create_autocmd("TermOpen", {
     opt_local.relativenumber = false
 
     -- Default to insert mode in the integrated terminal.
-    cmd([[startinsert]])
+    cmd.startinsert()
   end,
 })
 
