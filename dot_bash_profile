@@ -71,9 +71,6 @@ if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
   # keep the old one set (for now) for any software using GTK 3 or an older
   # version of GTK 4. See: https://docs.gtk.org/gtk4/running.html#gdk_debug
   export GDK_DEBUG=portals
-
-  # Opt in to Wayland mode for Firefox.
-  export MOZ_ENABLE_WAYLAND=1
 fi
 
 # Improve font rendering in Java applications.
