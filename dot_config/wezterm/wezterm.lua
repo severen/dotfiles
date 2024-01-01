@@ -10,6 +10,7 @@ return {
 
   color_scheme = "Catppuccin Mocha",
   window_background_opacity = 0.90,
+  force_reverse_video_cursor = true,
 
   enable_scroll_bar = true,
 
