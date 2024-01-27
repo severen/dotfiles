@@ -51,6 +51,10 @@ if status is-interactive
   abbr --add --global sctl "systemctl"
   abbr --add --global zzz "systemctl suspend"
 
+  if command -s zoxide &> /dev/null
+    zoxide init fish | source
+  end
+
   if command -s eza &> /dev/null
     set cmd "eza --color=auto --classify --group-directories-first" 
     alias ls $cmd
