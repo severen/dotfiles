@@ -38,6 +38,9 @@ export QMK_HOME="$HOME/Documents/Code/qmk"
 # Add the XDG BaseDir bin directory and the Cargo bin directory to $PATH.
 export PATH="$HOME/.local/bin:$CARGO_HOME/bin:$PATH"
 
+# Add the Rust toolchain man pages to $MANPATH.
+export MANPATH="$RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/share/man:$(manpath)"
+
 # Set Neovim as the default editor and diff viewer.
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
