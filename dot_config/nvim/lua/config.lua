@@ -199,7 +199,6 @@ require("lazy").setup({
           "toml",
           "typescript",
           "yaml",
-          "help",
           "jsdoc",
           "markdown",
           "markdown_inline",
