@@ -91,7 +91,7 @@ require("lazy").setup({
   -- }}}
 
   -- {{{ Interface
-  { "folke/which-key.nvim", name = "which-key", setup = true },
+  { "folke/which-key.nvim", name = "which-key", config = true },
   { "Lokaltog/neoranger", cmd = { "Ranger", "RangerCurrentFile" } },
   { "simnalamburt/vim-mundo", cmd = { "MundoShow", "MundoToggle" } },
   {
@@ -126,10 +126,9 @@ require("lazy").setup({
       g.pear_tree_smart_backspace = 1
     end,
   },
-  -- TODO: Figure out why these three plugins are not loading correctly.
-  { "echasnovski/mini.ai", setup = true },
-  { "echasnovski/mini.comment", setup = true },
-  { "kylechui/nvim-surround", setup = true },
+  { "echasnovski/mini.ai", config = true },
+  { "echasnovski/mini.comment", config = true },
+  { "kylechui/nvim-surround", config = true },
   {
     "andymass/vim-matchup",
     config = function()
@@ -139,13 +138,12 @@ require("lazy").setup({
   {
     "ggandor/leap.nvim",
     name = "leap",
-    -- TODO: Also figure out why this is not working.
-    setup = function()
+    config = function()
       require("leap").add_default_mappings()
     end,
   },
-  { "ggandor/leap-spooky.nvim", name = "leap-spooky", setup = true },
-  { "ggandor/flit.nvim", name = "flit", setup = true },
+  { "ggandor/leap-spooky.nvim", name = "leap-spooky", config = true },
+  { "ggandor/flit.nvim", name = "flit", config = true },
   -- }}}
 
   -- {{{ Completion and Diagnostics
@@ -164,7 +162,6 @@ require("lazy").setup({
       -- TODO: Setup completion.
     end,
   },
-  -- }}}
 
   -- {{{ Language Support
   {
@@ -268,10 +265,6 @@ vim.opt.showmode = false
 -- }}}
 
 -- Interface {{{
-
--- TODO: Remove when I figure out why this is not being set up properly by
---       the plugin manager.
-require("which-key").setup()
 
 map("n", "<leader><leader>", ":", { desc = "Run Ex command" })
 map("n", "<leader>q", ":qa<CR>", { desc = "Quit" })
@@ -397,14 +390,6 @@ map("i", "<S-Tab>", "<C-d>")
 
 -- Map Ctrl+Backspace to delete backwards by words.
 map("i", "<C-BS>", "<C-w>")
-
--- TODO: Remove when I figure out why these are not being set up properly by
---       the plugin manager.
-require("mini.ai").setup()
-require("mini.comment").setup()
-require("nvim-surround").setup()
-require("leap").add_default_mappings()
-require("flit").setup()
 
 -- Display invisible characters.
 opt.list = true
