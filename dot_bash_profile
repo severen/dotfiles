@@ -56,13 +56,6 @@ export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 # Wire up the SSH agent for persisting SSH credentials.
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-# Tell VDPAU to use the correct driver for each of my machines.
-if [[ "$HOSTNAME" == "baldr" ]]; then
-  export VDPAU_DRIVER="radeonsi"
-elif [[ "$HOSTNAME" == "prometheus" ]]; then
-  export VDPAU_DRIVER="va_gl"
-fi
-
 if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
   # Force GTK 3 and 4 to use a file dialog (and other things) that is native to
   # the current desktop environment. Note that this doesn't necessarily mean
