@@ -72,10 +72,6 @@ fi
 # Improve font rendering in Java applications.
 export _JAVA_OPTIONS="$_JAVA_OPTIONS -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
 
-# TODO: Evaluate whether this is required under Plasma + Bismuth.
-# Fix the behaviour of Java applications when using a tiling window manager.
-export _JAVA_AWT_WM_NONREPARENTING=1
-
 # Source ~/.bashrc if it exists.
 # shellcheck source=/home/severen/.bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc
