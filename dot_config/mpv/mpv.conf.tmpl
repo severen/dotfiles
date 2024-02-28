@@ -1,17 +1,14 @@
-profile=gpu-hq
+{{ if eq .chezmoi.hostname "baldr" }}
+profile=high-quality
+{{ end }}
 
-# All of my machines currently support Vulkan and VA-API, so there should be no issue
-# with requesting mpv specifically use both APIs.
+# All of my machines currently support Vulkan and VA-API, so there should be no
+# issues with enabling the use of both APIs.
 vo=gpu-next
 gpu-api=vulkan
 hwdec=vaapi
 
 video-sync=display-resample
-
-{{ if eq .chezmoi.hostname "baldr" }}
-scale=ewa_lanczos
-cscale=ewa_lanczos
-{{ end }}
 
 interpolation
 tscale=oversample
