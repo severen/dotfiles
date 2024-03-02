@@ -385,6 +385,9 @@ local text_width = 80
 opt.textwidth = text_width
 opt.colorcolumn = { text_width + 1 }
 
+-- Stop the Rust ftplugin from fucking with the above.
+g.rust_recommended_style = false
+
 -- Delete a level of indentation with Shift+Tab.
 map("i", "<S-Tab>", "<C-d>")
 
