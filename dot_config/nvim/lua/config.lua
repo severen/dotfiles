@@ -213,7 +213,10 @@ require("lazy").setup({
           enable = true,
           additional_vim_regex_highlighting = false,
         },
-        indent = { enable = true },
+        -- TODO: Revisit this when Tree Sitter powered indentation is less
+        -- buggy. I disabled this because I ran into issues with indentation in
+        -- Rust code.
+        indent = { enable = false },
         matchup = { enable = true },
         playground = { enable = true },
       })
