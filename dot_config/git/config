@@ -28,9 +28,6 @@
 [interactive]
   diffFilter = delta --hyperlinks --color-only
 
-[add.interactive]
-  useBuiltin = false
-
 [delta]
   navigate = true
   features = line-numbers decorations
