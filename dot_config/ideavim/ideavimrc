@@ -2,7 +2,8 @@ let mapleader=" "
 
 set surround
 set commentary
-set easymotion
+set sneak
+set matchit
 
 set incsearch
 set highlightedyank
