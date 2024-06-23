@@ -1,0 +1,10 @@
+[Context]
+{{ if eq .chezmoi.hostname "baldr" -}}
+filesystems=/run/media/system/fast-storage/Games/Steam:rw;/run/media/system/storage/Games/Steam:rw;xdg-config/MangoHud:ro;
+{{- else -}}
+filesystems=xdg-config/MangoHud:ro;
+{{- end }}
+
+[Environment]
+MANGOHUD=1
+MANGOHUD_DLSYM=1
