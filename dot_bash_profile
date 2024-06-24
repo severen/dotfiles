@@ -13,11 +13,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 # _entirely_ standards compliant, at least cleans up $HOME.
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-# TODO: Revisit GHCup/GHC/Cabal since it seems that they are transitioning to
-#       XDG by default.
 export GHCUP_USE_XDG_DIRS="yes"
-# export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
-# export CABAL_DIR="$XDG_CACHE_HOME/cabal"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
