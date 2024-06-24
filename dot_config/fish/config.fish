@@ -11,7 +11,8 @@ if status is-interactive
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
   abbr --add --global e $VISUAL
-  abbr --add --global cm "chezmoi" abbr --add --global s "sudo"
+  abbr --add --global cm "chezmoi"
+  abbr --add --global s "sudo"
 
   # These Git aliases are modelled after the Magit key bindings.
   abbr --add --global g "git"
