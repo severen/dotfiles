@@ -44,9 +44,16 @@ export DIFFPROG="nvim -d"
 # Enable incremental search with smart case in less.
 export LESS="--incsearch --ignore-case"
 
-# Direct programs that expect a Docker daemon socket to Podman's compatibile
-# stand-in.
-export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+if [[ "$(uname -n)" != "yggdrasill" ]]; then
+  # Direct programs that expect a Docker daemon socket to Podman's compatibile
+  # stand-in.
+  export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+else
+  # On my work laptop, I use Docker instead of Podman. Because of code of ours
+  # that relies on Docker Compose's old container naming scheme, the following
+  # needs to be set to revert to the old scheme.
+  export COMPOSE_COMPATIBILITY=1
+fi
 
 # Wire up the SSH agent for persisting SSH credentials.
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
