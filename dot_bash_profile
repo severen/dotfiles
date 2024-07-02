@@ -25,6 +25,7 @@ export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 export TEXMFHOME="$XDG_DATA_HOME/texlive"
 export TEXMFCONFIG="$XDG_CONFIG_HOME/texlive"
 export TEXMFVAR="$XDG_CACHE_HOME/texlive"
+export GDBHISTORY="$XDG_DATA_HOME/gdb/history"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node/history"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 # One could argue that this should be in $XDG_CONFIG_HOME, but as far as I can
