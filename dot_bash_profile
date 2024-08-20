@@ -48,8 +48,8 @@ export EDITOR="nvim"
 export VISUAL="$EDITOR"
 export DIFFPROG="nvim -d"
 
-# Enable incremental search with smart case in less.
-export LESS="--incsearch --ignore-case"
+# Enable incremental search with smart case and decrease the tab size in less.
+export LESS="--incsearch --ignore-case --tabs=2"
 
 if [[ "$(uname -n)" != "yggdrasill" ]]; then
   # Direct programs that expect a Docker daemon socket to Podman's compatibile
