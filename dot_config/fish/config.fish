@@ -43,7 +43,9 @@ if status is-interactive
   end
 
   if command -s eza &> /dev/null
-    set -l cmd "eza --color=auto --classify --group-directories-first" 
+    # TODO: Change this to use --hyperlink=auto once eza-community/eza#1059 is
+    #       merged.
+    set -l cmd "eza --color=auto --hyperlink --classify --group-directories-first" 
     alias ls $cmd
     alias ll "$cmd --long --header --group --git"
     alias la "ll --all"
@@ -51,12 +53,13 @@ if status is-interactive
   else
     echo "Note: eza is not installed"
 
-    set -l cmd "ls --color=auto --classify --group-directories-first"
+    set -l cmd "ls --color=auto --hyperlink=auto --classify --group-directories-first"
     alias ls $cmd
     alias ll "$cmd --long --human-readable"
   end
 
   alias grep "grep --color=auto"
+  alias rg "rg --hyperlink-format=default"
 
   alias lookbusy "cat /dev/urandom | hexdump -C | rg \"ca fe\""
 
