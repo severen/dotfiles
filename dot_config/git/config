@@ -27,6 +27,7 @@
   autosquash = true
 
 [alias]
+  fix = commit --fixup
   tree = log --graph --pretty=oneline --abbrev-commit --all
 
 [interactive]
