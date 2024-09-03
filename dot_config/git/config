@@ -6,11 +6,7 @@
   name = Severen Redwood
 
 [init]
-  # Cancelled!
   defaultBranch = master
-
-[alias]
-  tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
 
 [push]
   default = upstream
@@ -29,6 +25,9 @@
 [rebase]
   autostash = true
   autosquash = true
+
+[alias]
+  tree = log --graph --pretty=oneline --abbrev-commit --all
 
 [interactive]
   diffFilter = delta --hyperlinks --color-only
