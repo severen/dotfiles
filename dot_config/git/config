@@ -23,7 +23,11 @@
   colorMoved = default
 
 [merge]
+  autostash = true
   conflictStyle = diff3
+
+[rebase]
+  autostash = true
 
 [interactive]
   diffFilter = delta --hyperlinks --color-only
