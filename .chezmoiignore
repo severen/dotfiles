@@ -1,2 +1,6 @@
 README.md
 key.txt.age
+
+{{ if ne .chezmoi.hostname "yggdrasill" -}}
+.config/neomutt
+{{- end }}

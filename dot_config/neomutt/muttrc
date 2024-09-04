@@ -1,0 +1,22 @@
+# == General ==
+set ssl_force_tls = yes
+
+# == IMAP ==
+set imap_user = "severen.redwood@sitehost.co.nz"
+
+set spoolfile="imaps://extmx1.sitehost.co.nz"
+
+mailboxes $spoolfile
+
+set folder     = $spoolfile
+set postponed  = "+Drafts"
+set record     = "+Sent"
+set trash      = "+Trash"
+
+# == SMTP ==
+set smtp_url="smtps://severen.redwood@sitehost.co.nz@extmx1.sitehost.co.nz"
+set smtp_authenticators="plain"
+
+# == Composition ==
+set realname="Severen Redwood"
+set from="severen.redwood@sitehost.co.nz"
