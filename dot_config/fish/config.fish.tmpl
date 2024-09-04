@@ -36,6 +36,10 @@ if status is-interactive
   abbr --add --global gt "git tag"
   abbr --add --global gz "git stash"
 
+  {{ if eq .chezmoi.hostname "yggdrasill" -}}
+  abbr --add --global consh "console ssh"
+  {{- end }}
+
   if command -s zoxide &> /dev/null
     zoxide init fish | source
   else
