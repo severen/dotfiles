@@ -2,8 +2,12 @@
   pager = delta
 
 [user]
-  email = sev@severen.dev
   name = Severen Redwood
+{{- if not (eq .chezmoi.hostname "yggdrasill") }}
+  email = sev@severen.dev
+{{ else }}
+  email = severen.redwood@sitehost.co.nz
+{{- end }}
 
 [init]
   defaultBranch = master
