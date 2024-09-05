@@ -4,6 +4,10 @@ AddKeysToAgent yes
 # Enable faster ciphers (my computers have CPUs with AESNI instructions).
 Ciphers aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
 
+# Display a 'randomart' image of the host key fingerprint at login and for
+# unknown host keys.
+VisualHostKey yes
+
 # Disable compression with gzip since it is relatively slow and thus becomes a
 # bottleneck on fast connections, which I (thankfully) usually have. It can be
 # manually enabled with the -C flag if required.
