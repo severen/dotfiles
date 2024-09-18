@@ -15,7 +15,6 @@ Compression no
 
 Host aur.archlinux.org
   User aur
-  IdentityFile ~/.ssh/id_ed25519
 
 # Get around firewalls by connecting with SSH over HTTPS for connections to Git
 # forges.
@@ -23,10 +22,8 @@ Host github.com
   User github
   Hostname ssh.github.com
   Port 443
-  IdentityFile ~/.ssh/id_ed25519
 
 Host gitlab.com
   User git
   Hostname altssh.gitlab.com
   Port 443
-  IdentityFile ~/.ssh/id_ed25519
