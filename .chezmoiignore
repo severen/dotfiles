@@ -1,6 +1,13 @@
 README.md
 key.txt.age
 
+{{ if not (eq .chezmoi.hostname "baldr" "prometheus") -}}
+.ssh/id_ed25519
+.ssh/id_ed25519.pub
+{{- end }}
+
 {{ if ne .chezmoi.hostname "yggdrasill" -}}
+.ssh/id_rsa
+.ssh/id_rsa.pub
 .config/neomutt
 {{- end }}
