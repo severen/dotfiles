@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Fix up a commit by presenting an interactive search through Git history.
+
+set -e -o pipefail
+
+# The `|| true` here ensures that the pipeline will complete even if no commit
+# is selected.
+commit="$(git log --color=always --oneline | fzf --ansi --track --no-sort || true | cut -d ' ' -f 1)"
+if [[ -z "$commit" ]]; then
+  echo "No commit selected, exiting."
+  exit
+fi
+
+git commit --fixup="$commit" "$@"
