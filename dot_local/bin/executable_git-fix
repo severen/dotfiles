@@ -6,7 +6,7 @@ set -e -o pipefail
 
 # The `|| true` here ensures that the pipeline will complete even if no commit
 # is selected.
-commit="$(git log --color=always --oneline | fzf --ansi --track --no-sort || true | cut -d ' ' -f 1)"
+commit="$(git log --color=always --oneline | (fzf --ansi --track --no-sort || true) | cut -d ' ' -f 1)"
 if [[ -z "$commit" ]]; then
   echo "No commit selected, exiting."
   exit
