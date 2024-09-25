@@ -13,6 +13,8 @@ set postponed  = "+Drafts"
 set record     = "+Sent"
 set trash      = "+Trash"
 
+set sort = threads
+
 # == SMTP ==
 set smtp_url="smtps://severen.redwood@sitehost.co.nz@extmx1.sitehost.co.nz"
 set smtp_authenticators="plain"
