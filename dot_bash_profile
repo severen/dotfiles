@@ -65,8 +65,11 @@ else
   export COMPOSE_COMPATIBILITY=1
 fi
 
-# Wire up the SSH agent for persisting SSH credentials.
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+# This is not needed on GNOME as it includes its own agent.
+if [[ "$XDG_SESSION_DESKTOP" != "gnome" ]]; then
+  # Wire up the SSH agent for persisting SSH credentials.
+  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+fi
 
 if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
   # Force GTK 3 and 4 to use a file dialog (and other things) that is native to
