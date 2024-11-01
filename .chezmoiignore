@@ -1,7 +1,7 @@
 README.md
 key.txt.age
 
-{{ if not (eq .chezmoi.hostname "baldr" "prometheus") -}}
+{{ if not (eq .chezmoi.hostname "baldr" "fenrir") -}}
 .ssh/id_ed25519
 .ssh/id_ed25519.pub
 {{- end }}
