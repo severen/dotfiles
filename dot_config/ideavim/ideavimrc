@@ -3,18 +3,94 @@ let mapleader=" "
 set surround
 set commentary
 set sneak
+set easymotion
 set matchit
+set nerdtree
+set which-key
 
-set incsearch
-set highlightedyank
+" Disable the timeout on the leader key.
+set notimeout
 
-set clipboard=unnamedplus,ideaput
+" Disable the audible bell noise.
+set visualbell
 
 set scrolloff=4
 
 set number
 set relativenumber
 
+set ignorecase
+set smartcase
+set incsearch
+
+set highlightedyank
+set clipboard=unnamedplus,ideaput
+
+" Use language-specific integration in IDEA when joining lines.
 set ideajoin
 
-map <leader>z <Action>(ToggleDistractionFreeMode)
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+let g:WhichKey_DefaultDelay = 350
+
+" Move between tabs
+nnoremap <A-n> :tabnext<CR>
+nnoremap <A-p> :tabprev<CR>
+
+" Move between panes
+nnoremap <A-h> <C-w>h
+nnoremap <A-l> <C-w>l
+nnoremap <A-k> <C-w>k
+nnoremap <A-j> <C-w>j
+
+nnoremap Y y$
+
+" NOTE: Binding these the usual way with <Action> is pretty broken it seems.
+let g:WhichKeyDesc_prev_method = "[[ Jump to previous method"
+nnoremap [[ :action MethodUp<CR>
+let g:WhichKeyDesc_next_method = "]] Jump to next method"
+nnoremap ]] :action MethodDown<CR>
+
+let g:WhichKeyDesc_leader = "<leader> Leader"
+
+let g:WhichKeyDesc_leader_q = "<leader>q Close current tab"
+map <leader>q <Action>(CloseContent)
+let g:WhichKeyDesc_leader_Q = "<leader>Q Close window"
+map <leader>Q <Action>(Exit)
+
+let g:WhichKeyDesc_leader_d = "<leader>d Display"
+let g:WhichKeyDesc_leader_dz = "<leader>dz Toggle zen mode"
+map <leader>dz <Action>(ToggleZenMode)
+let g:WhichKeyDesc_leader_dd = "<leader>dd Toggle distraction-free mode"
+map <leader>dd <Action>(ToggleDistractionFreeMode)
+let g:WhichKeyDesc_leader_df = "<leader>df Toggle full screen"
+map <leader>df <Action>(ToggleFullScreen)
+
+let g:WhichKeyDesc_leader_f = "<leader>f File"
+let g:WhichKeyDesc_leader_ff = "<leader>ff Open file"
+map <leader>ff <action>(GotoFile)
+let g:WhichKeyDesc_leader_fr = "<leader>fr Open recent file"
+map <leader>fr <action>(RecentFiles)
+let g:WhichKeyDesc_leader_fs = "<leader>fs Select current file in explorer"
+map <leader>fs <action>(SelectInProjectView)
+let g:WhichKeyDesc_leader_fc = "<leader>fc Search file contents"
+map <leader>fc <action>(FindInPath)
+let g:WhichKeyDesc_leader_x = "<leader>x Toggle file explorer"
+map <leader>x :NERDTreeToggle<CR>
+
+let g:WhichKeyDesc_leader_r = "<leader>r Refactor"
+let g:WhichKeyDesc_leader_rm = "<leader>rm Extract method"
+map <leader>rm <Action>(ExtractMethod)
+let g:WhichKeyDesc_leader_rv = "<leader>rv Introduce variable"
+map <leader>rv <Action>(IntroduceVariable)
+let g:WhichKeyDesc_leader_rf = "<leader>rf Introduce field"
+map <leader>rf <Action>(IntroduceField)
+let g:WhichKeyDesc_leader_rs = "<leader>rs Change signature"
+map <leader>rs <Action>(ChangeSignature)
+let g:WhichKeyDesc_leader_rn = "<leader>rn Rename"
+map <leader>rn <Action>(RenameElement)
+let g:WhichKeyDesc_leader_rr = "<leader>rr View refactorings"
+map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+
+let g:WhichKeyDesc_leader_leader = "<leader><leader> EasyMotion prefix"
+let g:WhichKeyDesc_leader_j = "<leader>j Jump with EasyMotion"
+map <leader>j <Plug>(easymotion-s)
