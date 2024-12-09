@@ -39,6 +39,8 @@ if status is-interactive
 
   {{ if eq .chezmoi.hostname "yggdrasill" -}}
   abbr --add --global consh "console ssh"
+
+  alias mysth-console "docker exec -it -u mysth core_mysth_1 php console"
   {{- end }}
 
   if command -s zoxide &> /dev/null
