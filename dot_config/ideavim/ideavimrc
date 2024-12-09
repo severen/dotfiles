@@ -57,13 +57,13 @@ map <leader>q <Action>(CloseContent)
 let g:WhichKeyDesc_leader_Q = "<leader>Q Close window"
 map <leader>Q <Action>(Exit)
 
-let g:WhichKeyDesc_leader_d = "<leader>d Display"
-let g:WhichKeyDesc_leader_dz = "<leader>dz Toggle zen mode"
-map <leader>dz <Action>(ToggleZenMode)
-let g:WhichKeyDesc_leader_dd = "<leader>dd Toggle distraction-free mode"
-map <leader>dd <Action>(ToggleDistractionFreeMode)
-let g:WhichKeyDesc_leader_df = "<leader>df Toggle full screen"
-map <leader>df <Action>(ToggleFullScreen)
+let g:WhichKeyDesc_leader_w = "<leader>w Window"
+let g:WhichKeyDesc_leader_wz = "<leader>wz Toggle zen mode"
+map <leader>wz <Action>(ToggleZenMode)
+let g:WhichKeyDesc_leader_wd = "<leader>wd Toggle distraction-free mode"
+map <leader>wd <Action>(ToggleDistractionFreeMode)
+let g:WhichKeyDesc_leader_wf = "<leader>wf Toggle full screen"
+map <leader>wf <Action>(ToggleFullScreen)
 
 let g:WhichKeyDesc_leader_f = "<leader>f File"
 let g:WhichKeyDesc_leader_ff = "<leader>ff Open file"
