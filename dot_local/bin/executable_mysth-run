@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Run a PHP script within the MySth container.
+
+set -e -o pipefail
+
+if [[ ! $# -eq 1 ]]; then
+  echo "usage: $(basename "$0") [FILE]"
+  exit 1
+fi
+
+cat - "$1" << EOF | docker exec -i -u mysth core_mysth_1 php
+#!/usr/bin/php
+<?php
+require '../library/Bootstrap.php';
+\Bootstrap::start(true);
+?>
+EOF

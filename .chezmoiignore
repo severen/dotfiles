@@ -10,4 +10,5 @@ key.txt.age
 .ssh/id_rsa
 .ssh/id_rsa.pub
 .config/neomutt
+.local/bin/mysth-run
 {{- end }}
