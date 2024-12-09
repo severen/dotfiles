@@ -44,11 +44,20 @@ nnoremap <A-j> <C-w>j
 
 nnoremap Y y$
 
-" NOTE: Binding these the usual way with <Action> is pretty broken it seems.
+" This is more useful than the default of `EditorSplitLine`.
+" Also, `<C-o>:action EditorCompleteStatement<CR>` should be equivalent, but it
+" doesn't return to insert mode. Maybe an IdeaVim bug?
+inoremap <C-Enter> <esc>:action EditorCompleteStatement<cr>gi
+
 let g:WhichKeyDesc_prev_method = "[[ Jump to previous method"
 nnoremap [[ :action MethodUp<CR>
 let g:WhichKeyDesc_next_method = "]] Jump to next method"
 nnoremap ]] :action MethodDown<CR>
+
+let g:WhichKeyDesc_prev_error = "[e Jump to previous error"
+nnoremap [e :action GotoPreviousError<CR>
+let g:WhichKeyDesc_next_error = "]e Jump to next error"
+nnoremap ]e :action GotoNextError<CR>
 
 let g:WhichKeyDesc_leader = "<leader> Leader"
 
@@ -56,14 +65,28 @@ let g:WhichKeyDesc_leader_q = "<leader>q Close current tab"
 map <leader>q <Action>(CloseContent)
 let g:WhichKeyDesc_leader_Q = "<leader>Q Close window"
 map <leader>Q <Action>(Exit)
+let g:WhichKeyDesc_leader_e = "<leader>e Show error"
+map <leader>e <Action>(ShowErrorDescription)
+let g:WhichKeyDesc_leader_i = "<leader>i Show intention actions"
+map <leader>i <Action>(ShowIntentionActions)
 
 let g:WhichKeyDesc_leader_w = "<leader>w Window"
+let g:WhichKeyDesc_leader_wq = "<leader>wq Close window"
+map <leader>wq <Action>(Exit)
 let g:WhichKeyDesc_leader_wz = "<leader>wz Toggle zen mode"
 map <leader>wz <Action>(ToggleZenMode)
 let g:WhichKeyDesc_leader_wd = "<leader>wd Toggle distraction-free mode"
 map <leader>wd <Action>(ToggleDistractionFreeMode)
 let g:WhichKeyDesc_leader_wf = "<leader>wf Toggle full screen"
 map <leader>wf <Action>(ToggleFullScreen)
+
+let g:WhichKeyDesc_leader_b = "<leader>b Buffer"
+let g:WhichKeyDesc_leader_bq = "<leader>bq Close current tab"
+map <leader>bq <Action>(CloseContent)
+let g:WhichKeyDesc_leader_bi = "<leader>bi Show intention actions"
+map <leader>bi <Action>(ShowIntentionActions)
+let g:WhichKeyDesc_leader_be = "<leader>be Show error"
+map <leader>be <Action>(ShowErrorDescription)
 
 let g:WhichKeyDesc_leader_f = "<leader>f File"
 let g:WhichKeyDesc_leader_ff = "<leader>ff Open file"
@@ -76,6 +99,20 @@ let g:WhichKeyDesc_leader_fc = "<leader>fc Search file contents"
 map <leader>fc <action>(FindInPath)
 let g:WhichKeyDesc_leader_x = "<leader>x Toggle file explorer"
 map <leader>x :NERDTreeToggle<CR>
+
+let g:WhichKeyDesc_leader_s = "<leader>s Search"
+let g:WhichKeyDesc_leader_sa = "<leader>sa Search actions"
+map <leader>sa <action>(GotoAction)
+let g:WhichKeyDesc_leader_sc = "<leader>sc Search classes"
+map <leader>sc <action>(GotoClass)
+let g:WhichKeyDesc_leader_sf = "<leader>sf Search files"
+map <leader>sf <action>(GotoFile)
+let g:WhichKeyDesc_leader_ss = "<leader>ss Search everywhere"
+map <leader>ss <action>(SearchEverywhere)
+let g:WhichKeyDesc_leader_st = "<leader>st Search for text"
+map <leader>st <action>(TextSearchAction)
+let g:WhichKeyDesc_leader_sz = "<leader>sz Search symbols"
+map <leader>sz <action>(GotoSymbol)
 
 let g:WhichKeyDesc_leader_r = "<leader>r Refactor"
 let g:WhichKeyDesc_leader_rm = "<leader>rm Extract method"
