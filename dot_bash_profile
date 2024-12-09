@@ -63,6 +63,8 @@ else
   # that relies on Docker Compose's old container naming scheme, the following
   # needs to be set to revert to the old scheme.
   export COMPOSE_COMPATIBILITY=1
+
+  export GL_HOST="gitlab.sitehost.co.nz"
 fi
 
 # This is not needed on GNOME as it includes its own agent.
