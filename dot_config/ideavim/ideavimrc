@@ -33,31 +33,38 @@ let g:WhichKey_SortOrder = "by_key_prefix_first"
 let g:WhichKey_DefaultDelay = 350
 
 " Move between tabs
-nnoremap <A-n> :tabnext<CR>
-nnoremap <A-p> :tabprev<CR>
+nnoremap <A-n> :tabnext<Enter>
+nnoremap <A-p> :tabprev<Enter>
 
 " Move between panes
 nnoremap <A-h> <C-w>h
-nnoremap <A-l> <C-w>l
-nnoremap <A-k> <C-w>k
 nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
+" IdeaVim unfortunately doesn't currently have changelist functionality, but
+" these two bindings are close enough.
+let g:WhichKeyDesc_last_change = "g; Jump to last change"
+nnoremap g; :action JumpToLastChange<Enter>
+let g:WhichKeyDesc_next_change = "g, Jump to next change"
+nnoremap g, :action JumpToNextChange<Enter>
 
 nnoremap Y y$
 
 " This is more useful than the default of `EditorSplitLine`.
-" Also, `<C-o>:action EditorCompleteStatement<CR>` should be equivalent, but it
+" Also, `<C-o>:action EditorCompleteStatement<Enter>` should be equivalent, but it
 " doesn't return to insert mode. Maybe an IdeaVim bug?
 inoremap <C-Enter> <esc>:action EditorCompleteStatement<cr>gi
 
 let g:WhichKeyDesc_prev_method = "[[ Jump to previous method"
-nnoremap [[ :action MethodUp<CR>
+nnoremap [[ :action MethodUp<Enter>
 let g:WhichKeyDesc_next_method = "]] Jump to next method"
-nnoremap ]] :action MethodDown<CR>
+nnoremap ]] :action MethodDown<Enter>
 
 let g:WhichKeyDesc_prev_error = "[e Jump to previous error"
-nnoremap [e :action GotoPreviousError<CR>
+nnoremap [e :action GotoPreviousError<Enter>
 let g:WhichKeyDesc_next_error = "]e Jump to next error"
-nnoremap ]e :action GotoNextError<CR>
+nnoremap ]e :action GotoNextError<Enter>
 
 let g:WhichKeyDesc_leader = "<leader> Leader"
 
@@ -100,7 +107,7 @@ map <leader>fs <action>(SelectInProjectView)
 let g:WhichKeyDesc_leader_fc = "<leader>fc Search file contents"
 map <leader>fc <action>(FindInPath)
 let g:WhichKeyDesc_leader_x = "<leader>x Toggle file explorer"
-map <leader>x :NERDTreeToggle<CR>
+map <leader>x :NERDTreeToggle<Enter>
 
 let g:WhichKeyDesc_leader_s = "<leader>s Search"
 let g:WhichKeyDesc_leader_sa = "<leader>sa Search actions"
