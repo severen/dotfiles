@@ -19,10 +19,11 @@ set scrolloff=4
 set number
 set relativenumber
 
+set gdefault
 set ignorecase
 set smartcase
 set incsearch
-set gdefault
+set hlsearch
 
 set highlightedyank
 set clipboard=unnamedplus,ideaput
@@ -42,6 +43,9 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+
+" Easily clear search highlights
+nnoremap <C-l> :nohl<Enter>
 
 " IdeaVim unfortunately doesn't currently have changelist functionality, but
 " these two bindings are close enough.
