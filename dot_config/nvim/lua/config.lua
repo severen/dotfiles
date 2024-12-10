@@ -351,17 +351,33 @@ api.nvim_create_autocmd("TermOpen", {
 })
 
 -- Highlight the line the cursor is on in the currently active buffer.
-api.nvim_create_augroup("CursorLine", {})
+local cursor_line_group = api.nvim_create_augroup("CursorLine", {})
 api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
-  group = "CursorLine",
+  group = cursor_line_group,
   callback = function()
     opt_local.cursorline = true
   end,
 })
 api.nvim_create_autocmd({ "WinLeave" }, {
-  group = "CursorLine",
+  group = cursor_line_group,
   callback = function()
     opt_local.cursorline = false
+  end,
+})
+
+-- Jump to the last known cursor position when opening a file, so long as the
+-- position is still valid and we are not editing a commit message (it's likely
+-- a different one than last time).
+api.nvim_create_autocmd("BufReadPost", {
+  group = api.nvim_create_augroup("RestorePosition", { clear = true }),
+  callback = function(args)
+    local is_valid_line =
+      vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line("$")
+    local is_not_commit = vim.b[args.buf].filetype ~= "commit"
+
+    if is_valid_line and is_not_commit then
+      cmd([[normal! g`"]])
+    end
   end,
 })
 
