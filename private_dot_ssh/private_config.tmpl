@@ -13,6 +13,11 @@ VisualHostKey yes
 # manually enabled with the -C flag if required.
 Compression no
 
+{{ if eq .chezmoi.hostname "yggdrasill" -}}
+Host *.sitehost.nz *.sitehost.co.nz *.shq.nz
+  User sitehost
+{{- end }}
+
 Host aur.archlinux.org
   User aur
 
