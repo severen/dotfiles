@@ -372,7 +372,7 @@ api.nvim_create_autocmd("BufReadPost", {
   group = api.nvim_create_augroup("RestorePosition", { clear = true }),
   callback = function(args)
     local is_valid_line =
-      vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line("$")
+      vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) <= vim.fn.line("$")
     local is_not_commit = vim.b[args.buf].filetype ~= "commit"
 
     if is_valid_line and is_not_commit then
