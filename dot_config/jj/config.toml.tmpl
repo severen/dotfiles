@@ -1,0 +1,10 @@
+[user]
+name = "Severen Redwood"
+{{- if not (eq .chezmoi.hostname "yggdrasill") }}
+email = "sev@severen.dev"
+{{- else }}
+email = "severen.redwood@sitehost.co.nz"
+{{- end }}
+
+[ui]
+default-command = "log"
