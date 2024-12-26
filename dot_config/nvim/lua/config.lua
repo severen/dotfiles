@@ -176,6 +176,7 @@ require("lazy").setup({
           "cmake",
           "cpp",
           "css",
+          "dockerfile",
           "eex",
           "elixir",
           "erlang",
@@ -190,6 +191,7 @@ require("lazy").setup({
           "jsdoc",
           "json",
           "just",
+          "kotlin",
           "lua",
           "markdown",
           "markdown_inline",
@@ -198,6 +200,7 @@ require("lazy").setup({
           "nix",
           "ocaml",
           "ocaml_interface",
+          "perl",
           "php",
           "prolog",
           "python",
@@ -214,6 +217,7 @@ require("lazy").setup({
           "vimdoc",
           "wgsl",
           "yaml",
+          "zig"
         },
         highlight = {
           enable = true,
