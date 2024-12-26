@@ -14,6 +14,7 @@ If you are interested, some core programs I use are:
 * Shell: fish (`exec`'d by bash)
 * Window Manager: KWin
 * Desktop Environment: KDE Plasma
+* Terminal Emulator: Ghostty
 * Browser: Firefox
 * Password Manager: KeePass XC
 * Music Player: Elisa
