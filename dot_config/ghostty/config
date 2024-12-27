@@ -1,3 +1,4 @@
+font-size = 11
 font-feature = zero
 
 theme = dark:catppuccin-mocha,light:catppuccin-latte
