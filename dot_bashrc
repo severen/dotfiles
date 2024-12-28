@@ -53,9 +53,11 @@ HISTFILE="$XDG_DATA_HOME/bash/history"
 PS1="[\u@\h \W]\$ "
 
 if command -v exa &> /dev/null; then
-  alias ls="exa --color=auto --classify --group-directories-first"
-  alias lsx="exa --color=auto --classify --long --header --group --git --group-directories-first"
-  alias tree="exa --color=auto --classify --git-ignore --tree"
+  cmd="eza --color=auto --hyperlink --classify --group-directories-first"
+  alias ls="$cmd"
+  alias ll="$cmd --long --header --group --git"
+  alias la="ll --all"
+  alias tree="$cmd --git-ignore --tree"
 else
   alias ls="ls --color=auto"
 fi
