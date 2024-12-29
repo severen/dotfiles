@@ -280,6 +280,9 @@ for _, direction in ipairs({ "up", "down", "left", "right" }) do
   map("", "<" .. direction .. ">", "<nop>")
 end
 
+-- Set the title of the window if possible.
+opt.title = true
+
 -- Always display the sign column to avoid unwarranted jumps.
 opt.signcolumn = "yes"
 
