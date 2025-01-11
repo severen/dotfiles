@@ -35,14 +35,16 @@ fi
 # Only switch to Fish if:
 #   + Fish is present in $PATH.
 #   + Fish is not the parent process.
+#   + We are not executing a string of Bash code (eg. `bash -c 'echo test'`).
 #   + We are not already in an interactive Bash shell.
-if command -v fish &> /dev/null &&
-  [[ $(ps --no-header --pid=$PPID --format=cmd) != "fish" ]] &&
-  [[ ! $NO_FISH ]]
+if command -v fish &> /dev/null && [[
+  "$(ps --no-header --pid=$PPID --format=cmd)" != "fish" &&
+  -z $BASH_EXECUTION_STRING &&
+  $SHLVL == 1
+]]
 then
-  exec fish
-else
-  export NO_FISH=true
+  shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=''
+  exec fish $LOGIN_OPTION
 fi
 
 if [[ ! -d "$XDG_DATA_HOME/bash" ]]; then
