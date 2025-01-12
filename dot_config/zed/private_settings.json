@@ -1,0 +1,19 @@
+{
+  "assistant": {
+    "default_model": {
+      "provider": "ollama",
+      "model": "codestral:latest"
+    },
+    "version": "2"
+  },
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_features": { "zero": true },
+  "buffer_line_height": "standard",
+  "relative_line_numbers": true,
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha"
+  },
+  "vim_mode": true
+}
