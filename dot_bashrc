@@ -1,33 +1,51 @@
 # shellcheck shell=bash
 
-# This .bashrc is essentially a stub to ensure that all of the POSIX profile
-# scripts are sourced prior to running Fish, which is _not_ POSIX compliant (and
-# that is a good thing!).
+# If not running interactively, don't do anything.
+[[ $- != *i* ]] && return
 
-# These do not need to be explicitly set, but they are useful to be able to
-# reference.
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.cache"
+# Set the Linux console colour scheme to Catpuccin Mocha.
+if [[ "$TERM" = "linux" ]]; then
+  printf %b "\e]P01E1E2E" # background color to "Base"
+  printf %b "\e]P8585B70" # bright black to "Surface2"
 
-# Only switch to fish if:
-#   + It is present in $PATH.
-#   + It is not the parent process.
-#   + We are not executing a string of bash code (eg. `bash -c 'echo test'`).
-#   + We are not already in an interactive bash shell.
+  printf %b "\e]P7BAC2DE" # text color to "Text"
+  printf %b "\e]PFA6ADC8" # bright white to "Subtext0"
+
+  printf %b "\e]P1F38BA8" # red to "Red"
+  printf %b "\e]P9F38BA8" # bright red to "Red"
+
+  printf %b "\e]P2A6E3A1" # green to "Green"
+  printf %b "\e]PAA6E3A1" # bright green to "Green"
+
+  printf %b "\e]P3F9E2AF" # yellow to "Yellow"
+  printf %b "\e]PBF9E2AF" # bright yellow to "Yellow"
+
+  printf %b "\e]P489B4FA" # blue to "Blue"
+  printf %b "\e]PC89B4FA" # bright blue to "Blue"
+
+  printf %b "\e]P5F5C2E7" # magenta to "Pink"
+  printf %b "\e]PDF5C2E7" # bright magenta to "Pink"
+
+  printf %b "\e]P694E2D5" # cyan to "Teal"
+  printf %b "\e]PE94E2D5" # bright cyan to "Teal"
+
+  clear
+fi
+
+# Only switch to Fish if:
+#   + Fish is present in $PATH.
+#   + Fish is not the parent process.
+#   + We are not executing a string of Bash code (eg. `bash -c 'echo test'`).
+#   + We are not already in an interactive Bash shell.
 if command -v fish &> /dev/null && [[
-    "$(ps --no-header --pid=$PPID --format=cmd)" != "fish" &&
-    -z $BASH_EXECUTION_STRING &&
-    $SHLVL == 1
-  ]]
+  "$(ps --no-header --pid=$PPID --format=cmd)" != "fish" &&
+  -z $BASH_EXECUTION_STRING &&
+  $SHLVL == 1
+]]
 then
   shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=''
   exec fish $LOGIN_OPTION
 fi
-
-# If not running interactively, exit.
-[[ $- != *i* ]] && return
 
 if [[ ! -d "$XDG_DATA_HOME/bash" ]]; then
   mkdir "$XDG_DATA_HOME/bash"
@@ -36,11 +54,14 @@ HISTFILE="$XDG_DATA_HOME/bash/history"
 
 PS1="[\u@\h \W]\$ "
 
-alias ls="ls --color=auto"
-alias ll="ls -l --human-readable"
-alias la="ll --almost-all"
-
-alias grep="grep --color=auto"
-alias ip="ip --color=auto"
+if command -v exa &> /dev/null; then
+  cmd="eza --color=auto --hyperlink --classify --group-directories-first"
+  alias ls="$cmd"
+  alias ll="$cmd --long --header --group --git"
+  alias la="ll --all"
+  alias tree="$cmd --git-ignore --tree"
+else
+  alias ls="ls --color=auto"
+fi
 
 # vim: ft=bash
