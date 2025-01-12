@@ -95,7 +95,7 @@ if status is-interactive
   end
 
   # Wrap yazi so that the current working directory is changed on exit.
-  function yazi
+  function yazi --wraps yazi
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     command yazi $argv --cwd-file="$tmp"
     if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
