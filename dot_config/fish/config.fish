@@ -103,4 +103,40 @@ if status is-interactive
     end
     rm -f -- "$tmp"
   end
+
+  function system-color-scheme --description "Get the current system colour scheme"
+    set -l color_scheme (
+      busctl --user --json=short call \
+        "org.freedesktop.portal.Desktop" \
+        "/org/freedesktop/portal/desktop" \
+        "org.freedesktop.portal.Settings" \
+        ReadOne ss org.freedesktop.appearance color-scheme | jq .data[0].data
+    )
+
+    if test $color_scheme = 1
+      echo "dark"
+    else 
+      echo "light"
+    end
+  end
+
+  function bat --wraps bat
+    if test (system-color-scheme) = "dark"
+      set theme "Catppuccin Mocha"
+    else
+      set theme "Catppuccin Latte"
+    end
+
+    command bat --theme $theme $argv
+  end
+
+  function glow --wraps glow
+    if test (system-color-scheme) = "dark"
+      set theme "$XDG_CONFIG_HOME/glow/themes/catppuccin-mocha.json"
+    else
+      set theme "$XDG_CONFIG_HOME/glow/themes/catppuccin-latte.json"
+    end
+
+    command glow --style $theme $argv
+  end
 end
