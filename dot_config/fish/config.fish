@@ -37,11 +37,11 @@ if status is-interactive
   abbr --add --global gt "git tag"
   abbr --add --global gz "git stash"
 
-  {{ if eq .chezmoi.hostname "yggdrasill" -}}
-  abbr --add --global consh "console ssh"
-
-  alias mysth-console "docker exec -it -u mysth core_mysth_1 php console"
-  {{- end }}
+  # This configuration is specific to my work laptop.
+  if test $hostname = "yggdrasill"
+    abbr --add --global consh "console ssh"
+    alias mysth-console "docker exec -it -u mysth core_mysth_1 php console"
+  end
 
   if command -s zoxide &> /dev/null
     zoxide init fish | source
