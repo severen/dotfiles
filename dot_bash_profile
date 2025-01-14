@@ -46,10 +46,11 @@ export PATH="$HOME/.local/bin:$CARGO_HOME/bin:$GOPATH/bin:$PATH"
 # Add the Rust toolchain man pages to $MANPATH.
 export MANPATH="$RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/share/man:$(manpath)"
 
-# Set Neovim as the default editor and diff viewer.
+# Set default programs.
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
 export DIFFPROG="nvim -d"
+export PAGER="less"
 
 # Enable incremental search with smart case and decrease the tab size in less.
 export LESS="-R --incsearch --ignore-case --tabs=2"
