@@ -1,5 +1,11 @@
 [
   {
+    "context": "vim_mode == normal || EmptyPane || SharedScreen",
+    "bindings": {
+      "space f": "file_finder::Toggle"
+    }
+  },
+  {
     "context": "vim_mode == normal",
     "bindings": {
       "shift-y": ["workspace::SendKeystrokes", "y $"]
