@@ -16,6 +16,9 @@ Compression no
 {{ if eq .chezmoi.hostname "yggdrasill" -}}
 Host *.sitehost.nz *.sitehost.co.nz *.shq.nz
   User sitehost
+  # Ghostty's terminfo database entry isn't widespread yet, so manually set
+  # $TERM to a more familiar value. See: https://ghostty.org/docs/help/terminfo
+  SetEnv TERM=xterm-256color
 {{- end }}
 
 Host aur.archlinux.org
