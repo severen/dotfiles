@@ -57,7 +57,7 @@ export PAGER="less"
 export LESS="-R --incsearch --ignore-case --tabs=2 --quit-if-one-screen"
 
 if [[ "$(uname -n)" != "yggdrasill" ]]; then
-  # Direct programs that expect a Docker daemon socket to Podman's compatibile
+  # Direct programs that expect a Docker daemon socket to Podman's compatible
   # stand-in.
   export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 else
