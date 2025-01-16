@@ -19,6 +19,9 @@ Host *.sitehost.nz *.sitehost.co.nz *.shq.nz
   # Ghostty's terminfo database entry isn't widespread yet, so manually set
   # $TERM to a more familiar value. See: https://ghostty.org/docs/help/terminfo
   SetEnv TERM=xterm-256color
+  # We have lots of _old_ servers and unfortunately I can't upgrade them all
+  # myself.
+  PubkeyAcceptedAlgorithms +ssh-rsa
 {{- end }}
 
 Host aur.archlinux.org
