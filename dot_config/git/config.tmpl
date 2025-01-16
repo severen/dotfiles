@@ -33,13 +33,16 @@
   autostash = true
   autosquash = true
 
-{{ if eq .chezmoi.hostname "yggdrasill" }}
+[credential]
+  helper = /usr/lib/git-core/git-credential-libsecret
+
+{{ if eq .chezmoi.hostname "yggdrasill" -}}
 [sendemail]
   smtpServer = extmx1.sitehost.co.nz
   smtpUser = severen.redwood@sitehost.co.nz
   smtpEncryption = ssl
   smtpAuth = PLAIN
-{{ end }}
+{{- end }}
 
 [alias]
   amend = commit --amend
