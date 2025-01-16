@@ -8,6 +8,10 @@ if status is-interactive
     starship init fish | source
   end
 
+  if command -s atuin &> "/dev/null"
+    atuin init --disable-up-arrow fish | source
+  end
+
   # Set fzf's colour scheme to Catppuccin Mocha.
   set -x FZF_DEFAULT_OPTS \
    "--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
