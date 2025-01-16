@@ -1,5 +1,11 @@
 [
   {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "shift-y": ["workspace::SendKeystrokes", "y $"]
+    }
+  },
+  {
     "context": "vim_mode == normal || vim_mode == visual",
     "bindings": {
       "s": ["vim::PushSneak", {}],
