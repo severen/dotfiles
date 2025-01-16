@@ -91,7 +91,11 @@ require("lazy").setup({
   -- }}}
 
   -- {{{ Interface
-  { "folke/which-key.nvim", name = "which-key", config = true },
+  {
+    "folke/which-key.nvim",
+    name = "which-key",
+    config = true,
+  },
   { "Lokaltog/neoranger", cmd = { "Ranger", "RangerCurrentFile" } },
   { "simnalamburt/vim-mundo", cmd = { "MundoShow", "MundoToggle" } },
   {
@@ -207,7 +211,7 @@ require("lazy").setup({
           "vimdoc",
           "wgsl",
           "yaml",
-          "zig"
+          "zig",
         },
         highlight = {
           enable = true,
