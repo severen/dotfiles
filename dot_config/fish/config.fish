@@ -62,6 +62,10 @@ if status is-interactive
     echo "Note: zoxide is not installed"
   end
 
+  if command -s jj &> /dev/null
+    COMPLETE=fish jj | source
+  end
+
   if command -s eza &> /dev/null
     # TODO: Change this to use --hyperlink=auto once eza-community/eza#1059 is
     #       merged.
