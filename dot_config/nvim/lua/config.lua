@@ -1,13 +1,5 @@
 -- Preamble {{{
 
--- Alias some interfaces for brevity.
-local g = vim.g
-local opt = vim.opt
-local opt_global = vim.opt_global
-local opt_local = vim.opt_local
-local cmd = vim.cmd
-local api = vim.api
-
 -- Add a more convenient way of creating key bindings.
 local function map(mode, lhs, rhs, options)
   local base_options = { noremap = true, silent = true }
@@ -22,7 +14,7 @@ end
 
 -- Bootstrap the plugin manager.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -35,8 +27,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Set the global leader to SPC and the local leader to SPC m.
-g.mapleader = " " -- NOTE: Must be set before specifying plugins.
-g.maplocalleader = " m"
+vim.g.mapleader = " " -- NOTE: Must be set before specifying plugins.
+vim.g.maplocalleader = " m"
 
 -- }}}
 
@@ -125,9 +117,9 @@ require("lazy").setup({
     "tmsvg/pear-tree",
     event = "InsertEnter",
     init = function()
-      g.pear_tree_smart_openers = 1
-      g.pear_tree_smart_closers = 1
-      g.pear_tree_smart_backspace = 1
+      vim.g.pear_tree_smart_openers = 1
+      vim.g.pear_tree_smart_closers = 1
+      vim.g.pear_tree_smart_backspace = 1
     end,
   },
   { "echasnovski/mini.ai", config = true },
@@ -136,7 +128,7 @@ require("lazy").setup({
   {
     "andymass/vim-matchup",
     config = function()
-      g.matchup_matchparen_offscreen = { method = "status_manual" }
+      vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
     end,
   },
   {
@@ -253,16 +245,16 @@ require("lazy").setup({
 -- Visuals {{{
 
 -- Use 24-bit colour like it's 1995!
-opt.termguicolors = true
+vim.opt.termguicolors = true
 
 -- Load my default colorscheme of choice.
-cmd.colorscheme("catppuccin-mocha")
+vim.cmd.colorscheme("catppuccin-mocha")
 
 -- The current mode is already displayed in the status line (by Lualine).
 vim.opt.showmode = false
 
 -- Modify cursor styling so that...
-opt.guicursor = {
+vim.opt.guicursor = {
   -- the normal, visual, command line normal, and show-match modes use a block
   -- cursor with the default colours defined by the terminal;
   "n-v-c-sm:block",
@@ -291,115 +283,119 @@ for _, direction in ipairs({ "up", "down", "left", "right" }) do
 end
 
 -- Set the title of the window if possible.
-opt.title = true
+vim.opt.title = true
 
 -- Always display the sign column to avoid unwarranted jumps.
-opt.signcolumn = "yes"
+vim.opt.signcolumn = "yes"
 
 -- Do not wrap lines longer than the window width.
-opt.wrap = false
+vim.opt.wrap = false
 
 -- Align wrapped lines with the indentation for that line.
-opt.breakindent = true
+vim.opt.breakindent = true
 
 -- Enable flash on yank.
-api.nvim_create_autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("YankFlash", {}),
   callback = function()
     vim.highlight.on_yank()
   end,
 })
 
 -- Improve the behaviour of search.
-opt.ignorecase = true
-opt.smartcase = true
-opt.gdefault = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.gdefault = true
 
 -- Start scrolling 4 lines before the edge of the window.
-opt.scrolloff = 4
-opt.sidescrolloff = 4
+vim.opt.scrolloff = 4
+vim.opt.sidescrolloff = 4
 
 -- Enable relative line numbers.
-opt.number = true
-opt.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
 -- More specifically, use relative line numbers in normal mode and absolute line
 -- numbers in insert mode.
-api.nvim_create_augroup("LineNumbers", {})
-api.nvim_create_autocmd(
+local line_number_group = vim.api.nvim_create_augroup("LineNumber", {})
+vim.api.nvim_create_autocmd(
   { "BufEnter", "FocusGained", "InsertLeave", "WinEnter" },
   {
-    group = "LineNumbers",
+    group = line_number_group,
     callback = function()
-      if opt.number:get() then
-        opt.relativenumber = true
+      if vim.opt.number:get() then
+        vim.opt.relativenumber = true
       end
     end,
   }
 )
-api.nvim_create_autocmd(
+vim.api.nvim_create_autocmd(
   { "BufLeave", "FocusLost", "InsertEnter", "WinLeave" },
   {
-    group = "LineNumbers",
+    group = line_number_group,
     callback = function()
-      if opt.number:get() then
-        opt.relativenumber = false
+      if vim.opt.number:get() then
+        vim.opt.relativenumber = false
       end
     end,
   }
 )
 
-api.nvim_create_autocmd("TermOpen", {
+-- Disable line numbers in the integrated terminal and default to insert mode.
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = vim.api.nvim_create_augroup("CustomizeTerminal", {}),
   callback = function()
-    -- Also, don't display line numbers in the integrated terminal.
-    opt_local.number = false
-    opt_local.relativenumber = false
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
 
-    -- Default to insert mode in the integrated terminal.
-    cmd.startinsert()
+    vim.cmd.startinsert()
   end,
 })
 
 -- Highlight the line the cursor is on in the currently active buffer.
-local cursor_line_group = api.nvim_create_augroup("CursorLine", {})
-api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
+local cursor_line_group = vim.api.nvim_create_augroup("ShowCursorLine", {})
+vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
   group = cursor_line_group,
   callback = function()
-    opt_local.cursorline = true
+    vim.opt_local.cursorline = true
   end,
 })
-api.nvim_create_autocmd({ "WinLeave" }, {
+vim.api.nvim_create_autocmd({ "WinLeave" }, {
   group = cursor_line_group,
   callback = function()
-    opt_local.cursorline = false
+    vim.opt_local.cursorline = false
   end,
 })
 
 -- Jump to the last known cursor position when opening a file, so long as the
 -- position is still valid and we are not editing a commit message (it's likely
 -- a different one than last time).
-api.nvim_create_autocmd("BufReadPost", {
-  group = api.nvim_create_augroup("RestorePosition", { clear = true }),
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = vim.api.nvim_create_augroup("RestorePosition", {}),
   callback = function(args)
-    local is_valid_line =
-      vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) <= vim.fn.line("$")
-    local is_not_commit = vim.b[args.buf].filetype ~= "commit"
+    local is_valid_line = vim.fn.line([['"]]) >= 1
+      and vim.fn.line([['"]]) <= vim.fn.line("$")
+    local is_not_commit = not vim.list_contains(
+      { "commit", "jjdescription" },
+      vim.b[args.buf].filetype
+    )
 
     if is_valid_line and is_not_commit then
-      cmd([[normal! g`"]])
+      vim.cmd.normal({ args = { 'g`"' }, bang = true })
     end
   end,
 })
 
 -- Automatically create parent directories when saving a file.
-api.nvim_create_autocmd("BufWritePre", {
-  group = api.nvim_create_augroup("auto_create_dir", { clear = true }),
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("CreateParentDirs", {}),
   callback = function(event)
-    local file = vim.loop.fs_realpath(event.match) or event.match
+    local file = vim.uv.fs_realpath(event.match) or event.match
 
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     local backup = vim.fn.fnamemodify(file, ":p:~:h")
     backup = backup:gsub("[/\\]", "%%")
-    opt_global.backupext = backup
+    vim.opt_global.backupext = backup
   end,
 })
 
@@ -409,18 +405,18 @@ api.nvim_create_autocmd("BufWritePre", {
 
 -- Use 2 spaces for indentation.
 local indent_width = 2
-opt.tabstop = indent_width -- indenting with tab
-opt.softtabstop = indent_width
-opt.shiftwidth = indent_width -- indenting with >
-opt.expandtab = true -- use spaces, not tab characters
+vim.opt.tabstop = indent_width -- indenting with tab
+vim.opt.softtabstop = indent_width
+vim.opt.shiftwidth = indent_width -- indenting with >
+vim.opt.expandtab = true -- use spaces, not tab characters
 
 -- Use 80 characters as the maximum line length.
 local text_width = 80
-opt.textwidth = text_width
-opt.colorcolumn = { text_width + 1 }
+vim.opt.textwidth = text_width
+vim.opt.colorcolumn = { text_width + 1 }
 
 -- Stop the Rust ftplugin from fucking with the above.
-g.rust_recommended_style = false
+vim.g.rust_recommended_style = false
 
 -- Delete a level of indentation with Shift+Tab.
 map("i", "<S-Tab>", "<C-d>")
@@ -429,8 +425,8 @@ map("i", "<S-Tab>", "<C-d>")
 map("i", "<C-BS>", "<C-w>")
 
 -- Display invisible characters.
-opt.list = true
-opt.listchars = {
+vim.opt.list = true
+vim.opt.listchars = {
   tab = "•·",
   trail = "·",
   extends = "❯",
@@ -439,17 +435,18 @@ opt.listchars = {
 }
 
 -- Persist undo history.
-opt.undofile = true
+vim.opt.undofile = true
 
 -- TODO: Replace with a ctrl+y binding for yank to clipboard.
-opt.clipboard:append({ "unnamedplus" })
+vim.opt.clipboard:append({ "unnamedplus" })
 
 -- Associate the GLSL filetype with the typical file extensions used for
 -- shaders.
-api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = vim.api.nvim_create_augroup("AssociateGlsl", {}),
   pattern = { "*.vert", "*.frag", "*.tesc", "*.geom", "*.comp" },
   callback = function()
-    opt_local.filetype = "glsl"
+    vim.opt_local.filetype = "glsl"
   end,
 })
 
@@ -458,10 +455,10 @@ api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 -- {{{ Completion and Diagnostics
 
 -- Use British English and New Zealand English dictionaries for spell checking.
-opt.spelllang = { "en_gb", "en_nz" }
+vim.opt.spelllang = { "en_gb", "en_nz" }
 
 -- Enable spell checking.
-opt.spell = true
+vim.opt.spell = true
 
 -- }}}
 
