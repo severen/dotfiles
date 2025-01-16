@@ -6,6 +6,7 @@
     },
     "version": "2"
   },
+  "autosave": "on_focus_change",
   "buffer_font_family": "JetBrains Mono",
   "buffer_font_features": { "zero": true },
   "buffer_line_height": "standard",
