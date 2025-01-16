@@ -5,5 +5,12 @@
       "s": ["vim::PushSneak", {}],
       "S": ["vim::PushSneakBackward", {}]
     }
+  },
+  {
+    "context": "vim_mode == operator",
+    "bindings": {
+      "z": ["vim::PushSneak", {}],
+      "Z": ["vim::PushSneakBackward", {}]
+    }
   }
 ]
