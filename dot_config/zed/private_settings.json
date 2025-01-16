@@ -19,10 +19,14 @@
     }
   },
   "relative_line_numbers": true,
+  "scroll_beyond_last_line": "off",
   "theme": {
     "mode": "system",
     "light": "Catppuccin Latte",
     "dark": "Catppuccin Mocha"
+  },
+  "vim": {
+    "toggle_relative_line_numbers": true
   },
   "vim_mode": true
 }
