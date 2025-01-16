@@ -53,7 +53,11 @@ if status is-interactive
   # This configuration is specific to my work laptop.
   if test $hostname = "yggdrasill"
     abbr --add --global consh "console ssh"
+
     alias mysth-console "docker exec -it -u mysth core_mysth_1 php console"
+    alias mysth-db "docker exec -it core_mysql_1 mysql"
+    alias mysth-exec "docker exec -it -w /home/www/mysth -u mysth core_mysth_1"
+    alias cpanel-exec "docker exec -it -w /home/www/sitehost-cpanel -u sitehost-cpanel core_cpanel_1"
   end
 
   if command -s zoxide &> /dev/null
