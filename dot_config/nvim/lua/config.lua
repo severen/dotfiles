@@ -216,6 +216,7 @@ require("lazy").setup({
           "svelte",
           "toml",
           "typescript",
+          "typst",
           "vim",
           "vimdoc",
           "wgsl",
