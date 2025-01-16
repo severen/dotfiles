@@ -19,6 +19,12 @@
     }
   },
   "relative_line_numbers": true,
+  "scrollbar": {
+    "axes": {
+      "vertical": true,
+      "horizontal": false
+    }
+  },
   "scroll_beyond_last_line": "off",
   "theme": {
     "mode": "system",
