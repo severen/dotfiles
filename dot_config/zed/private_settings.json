@@ -28,5 +28,6 @@
   "vim": {
     "toggle_relative_line_numbers": true
   },
-  "vim_mode": true
+  "vim_mode": true,
+  "wrap_guides": [80]
 }
