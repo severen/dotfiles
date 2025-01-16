@@ -1,7 +1,4 @@
 {
-  "features": {
-    "inline_completion_provider": "supermaven"
-  },
   "assistant": {
     "default_model": {
       "provider": "zed.dev",
@@ -12,6 +9,14 @@
   "buffer_font_family": "JetBrains Mono",
   "buffer_font_features": { "zero": true },
   "buffer_line_height": "standard",
+  "features": {
+    "inline_completion_provider": "supermaven"
+  },
+  "languages": {
+    "Markdown": {
+      "show_inline_completions": false
+    }
+  },
   "relative_line_numbers": true,
   "theme": {
     "mode": "system",
