@@ -19,6 +19,9 @@ push-bookmark-prefix = "severen/push-"
 "slice()" = "slice(@)"
 # View the entire branch (and all sub-branches thereof) that x belongs to.
 "slice(x)" = "ancestors(reachable(x, mutable()), 2)"
+"open()" = "open(mine())"
+# The revisions in domain which are not merged into trunk().
+"open(domain)" = "domain ~ ::immutable_heads()"
 # Find the closest bookmarks to x.
 "streams(x)" = "heads(::x & bookmarks())"
 
