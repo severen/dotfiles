@@ -271,6 +271,22 @@ cmd.colorscheme("catppuccin-mocha")
 -- The current mode is already displayed in the status line (by Lualine).
 vim.opt.showmode = false
 
+-- Modify cursor styling so that...
+opt.guicursor = {
+  -- the normal, visual, command line normal, and show-match modes use a block
+  -- cursor with the default colours defined by the terminal;
+  "n-v-c-sm:block",
+  -- the insert, command line insert, and visual with selection modes use a
+  -- blinking, vertical cursor with colours from the `Cursor` highlight group;
+  "i-ci-ve:ver25-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
+  -- the replace, command line replace, and operator-pending modes use a
+  -- blinking, horizontal cursor with colours from the `Cursor` highlight group;
+  "r-cr-o:hor20-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
+  -- the built-in terminal uses a blinking, block cursor with colours from the
+  -- `TermCursor` highlight group.
+  "t:block-blinkon500-blinkoff500-TermCursor",
+}
+
 -- }}}
 
 -- Interface {{{
