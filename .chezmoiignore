@@ -1,4 +1,5 @@
 README.md
+LICENSE
 key.txt.age
 
 {{ if not (eq .chezmoi.hostname "baldr" "fenrir") -}}
