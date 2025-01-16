@@ -117,7 +117,7 @@ if status is-interactive
   end
 
   function system-color-scheme --description "Get the current system colour scheme"
-    set -l color_scheme (
+    set color_scheme (
       busctl --user --json=short call \
         "org.freedesktop.portal.Desktop" \
         "/org/freedesktop/portal/desktop" \
