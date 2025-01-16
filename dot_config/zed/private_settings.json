@@ -11,11 +11,11 @@
   "buffer_font_features": { "zero": true },
   "buffer_line_height": "standard",
   "features": {
-    "inline_completion_provider": "supermaven"
+    "edit_prediction_provider": "zed"
   },
   "languages": {
     "Markdown": {
-      "show_inline_completions": false
+      "show_edit_predictions": false
     }
   },
   "relative_line_numbers": true,
