@@ -9,7 +9,7 @@ if [[ ! $# -eq 1 ]]; then
   exit 1
 fi
 
-cat - "$1" << EOF | docker exec -i -u mysth core_mysth_1 php
+cat - "$1" << EOF | docker exec -i -u mysth core_mysth_1 php -d xdebug.cli_color=2
 #!/usr/bin/php
 <?php
 require '../library/Bootstrap.php';
