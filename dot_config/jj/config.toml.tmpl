@@ -11,3 +11,9 @@ default-command = "log"
 
 [git]
 subprocess = true
+
+[revset-aliases]
+"slice()" = "slice(@)"
+# View the entire branch (and all sub-branches thereof) that the specified
+# revision belongs to.
+"slice(from)" = "ancestors(reachable(from, mutable()), 2)"
