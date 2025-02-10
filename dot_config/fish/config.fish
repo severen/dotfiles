@@ -25,6 +25,7 @@ if status is-interactive
   abbr --add --global e $VISUAL
   abbr --add --global s "sudo"
   abbr --add --global y "yazi"
+  abbr --add --global j "jj log -r 'slice()'"
   abbr --add --global cm "chezmoi"
 
   # These Git aliases are modelled after the Magit key bindings.
