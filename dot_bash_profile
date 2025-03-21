@@ -76,17 +76,6 @@ if [[ "$XDG_SESSION_DESKTOP" != "gnome" ]]; then
 fi
 
 if [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
-  # Force GTK 3 and 4 to use a file dialog (and other things) that is native to
-  # the current desktop environment. Note that this doesn't necessarily mean
-  # that a GTK application will use native file dialogs unless it uses the
-  # FileChooserNative API (or FileDialog in GTK 4.10 or greater). For more
-  # information, see the GTK documentation and the XDG Portals specification.
-  export GTK_USE_PORTAL=1
-  # The above environment variable was replaced by the below in GTK 4.7.1, but I
-  # keep the old one set (for now) for any software using GTK 3 or an older
-  # version of GTK 4. See: https://docs.gtk.org/gtk4/running.html#gdk_debug
-  export GDK_DEBUG=portals
-
   # Force Firefox to use Wayland.
   export MOZ_ENABLE_WAYLAND=1
 fi
