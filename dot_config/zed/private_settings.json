@@ -27,6 +27,11 @@
     }
   },
   "scroll_beyond_last_line": "off",
+  "terminal": {
+    "shell": {
+      "program": "fish"
+    }
+  },
   "theme": {
     "mode": "system",
     "light": "Catppuccin Latte",
