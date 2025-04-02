@@ -145,6 +145,7 @@ require("lazy").setup({
 
   -- {{{ Completion and Diagnostics
   -- TODO: Set up completion.
+  --- }}}
 
   -- {{{ Language Support
   {
