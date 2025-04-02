@@ -62,9 +62,9 @@ require("lazy").setup({
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
-    config = function()
-      require("catppuccin").setup()
-    end,
+    opts = {
+      show_end_of_buffer = true,
+    }
   },
   {
     "nvim-lualine/lualine.nvim",
