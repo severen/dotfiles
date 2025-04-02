@@ -1,4 +1,4 @@
--- Preamble {{{
+-- Preamble ⦃
 
 -- Add a more convenient way of creating key bindings.
 local function map(mode, lhs, rhs, options)
@@ -30,9 +30,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " " -- NOTE: Must be set before specifying plugins.
 vim.g.maplocalleader = " m"
 
--- }}}
+-- ⦄
 
--- {{{ Plugins
+-- Plugins ⦃
 
 local lazy_config = {
   performance = {
@@ -53,11 +53,11 @@ local lazy_config = {
 }
 
 require("lazy").setup({
-  -- {{{ Libraries
+  -- Libraries ⦃
   { "nvim-lua/plenary.nvim", name = "plenary" },
-  -- }}}
+  -- ⦄
 
-  -- {{{ Visuals
+  -- Visuals ⦃
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -81,9 +81,9 @@ require("lazy").setup({
     },
   },
   { "stevearc/dressing.nvim", name = "dressing", event = "VeryLazy" },
-  -- }}}
+  -- ⦄
 
-  -- {{{ Interface
+  -- Interface ⦃
   {
     "folke/which-key.nvim",
     name = "which-key",
@@ -111,9 +111,9 @@ require("lazy").setup({
   },
   { "rcarriga/nvim-notify", name = "notify", event = "VeryLazy" },
   { "folke/noice.nvim", event = "VeryLazy" },
-  -- }}}
+  -- ⦄
 
-  -- {{{ Editing
+  -- Editing ⦃
   {
     "tmsvg/pear-tree",
     event = "InsertEnter",
@@ -141,13 +141,13 @@ require("lazy").setup({
   },
   { "ggandor/leap-spooky.nvim", name = "leap-spooky", config = true },
   { "ggandor/flit.nvim", name = "flit", config = true },
-  -- }}}
+  -- ⦄
 
-  -- {{{ Completion and Diagnostics
+  -- Completion and Diagnostics ⦃
   -- TODO: Set up completion.
-  --- }}}
+  --- ⦄
 
-  -- {{{ Language Support
+  -- Language Support ⦃
   {
     "nvim-treesitter/nvim-treesitter",
     build = function()
@@ -239,12 +239,12 @@ require("lazy").setup({
       })
     end,
   },
-  -- }}}
+  -- ⦄
 }, lazy_config)
 
--- }}}
+-- ⦄
 
--- Visuals {{{
+-- Visuals ⦃
 
 -- Use 24-bit colour like it's 1995!
 vim.opt.termguicolors = true
@@ -271,9 +271,9 @@ vim.opt.guicursor = {
   "t:block-blinkon500-blinkoff500-TermCursor",
 }
 
--- }}}
+-- ⦄
 
--- Interface {{{
+-- Interface ⦃
 
 map("n", "<leader><leader>", ":", { desc = "Run Ex command" })
 map("n", "<leader>q", ":qa<CR>", { desc = "Quit" })
@@ -401,9 +401,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- }}}
+-- ⦄
 
--- {{{ Editing
+-- Editing ⦃
 
 -- Use 2 spaces for indentation.
 local indent_width = 2
@@ -452,9 +452,9 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
--- }}}
+-- ⦄
 
--- {{{ Completion and Diagnostics
+-- Completion and Diagnostics ⦃
 
 -- Use British English and New Zealand English dictionaries for spell checking.
 vim.opt.spelllang = { "en_gb", "en_nz" }
@@ -462,6 +462,6 @@ vim.opt.spelllang = { "en_gb", "en_nz" }
 -- Enable spell checking.
 vim.opt.spell = true
 
--- }}}
+-- ⦄
 
--- vim: set et foldlevel=0 foldmethod=marker:
+-- vim: set et foldlevel=0 foldmethod=marker foldmarker=⦃,⦄:
