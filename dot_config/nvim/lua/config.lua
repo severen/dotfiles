@@ -375,16 +375,27 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = vim.api.nvim_create_augroup("RestorePosition", {}),
   callback = function(args)
-    local is_valid_line = vim.fn.line([['"]]) >= 1
-      and vim.fn.line([['"]]) <= vim.fn.line("$")
-    local is_not_commit = not vim.list_contains(
+    local last_posn = vim.fn.line([['"]])
+
+    local is_valid_line = 0 <= last_posn and last_posn <= vim.fn.line("$")
+    -- TODO: Investigate replacing this by more generally excluding such files
+    -- from shada.
+    local is_commit = vim.list_contains(
       { "commit", "jjdescription" },
       vim.b[args.buf].filetype
     )
 
-    if is_valid_line and is_not_commit then
-      vim.cmd.normal({ args = { 'g`"' }, bang = true })
+    if not is_valid_line or is_commit then
+      return
     end
+
+    vim.cmd.normal({ args = { 'g`"' }, bang = true })
+    -- Deferring this command is somewhat of a hack to ensure that the fold
+    -- containing the cursor is expanded since folds can be created (are
+    -- created?) _after_ the `BufReadPost` event.
+    vim.defer_fn(function()
+      vim.cmd.normal({ args = { "zv" }, bang = true })
+    end, 5)
   end,
 })
 
