@@ -89,7 +89,27 @@ require("lazy").setup({
     name = "which-key",
     config = true,
   },
-  { "Lokaltog/neoranger", cmd = { "Ranger", "RangerCurrentFile" } },
+  {
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    dependencies = { "folke/snacks.nvim", lazy = false },
+    opts = {
+      open_for_directories = true,
+    },
+    init = function()
+      -- Fake loading the netrw plugin so that the `open_for_directories` option
+      -- functions.
+      vim.g.loaded_netrwPlugin = 1
+    end,
+    keys = {
+      {
+        "<leader>fb",
+        mode = { "n", "v" },
+        "<cmd>Yazi<cr>",
+        desc = "Browse files",
+      },
+    },
+  },
   { "simnalamburt/vim-mundo", cmd = { "MundoShow", "MundoToggle" } },
   {
     "lewis6991/gitsigns.nvim",
