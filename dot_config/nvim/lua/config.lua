@@ -64,6 +64,7 @@ require("lazy").setup({
     priority = 1000,
     opts = {
       show_end_of_buffer = true,
+      dim_inactive = { enabled = true },
     }
   },
   {
