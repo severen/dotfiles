@@ -65,7 +65,7 @@ require("lazy").setup({
     opts = {
       show_end_of_buffer = true,
       dim_inactive = { enabled = true },
-    }
+    },
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -380,10 +380,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     local is_valid_line = 0 <= last_posn and last_posn <= vim.fn.line("$")
     -- TODO: Investigate replacing this by more generally excluding such files
     -- from shada.
-    local is_commit = vim.list_contains(
-      { "commit", "jjdescription" },
-      vim.b[args.buf].filetype
-    )
+    local is_commit =
+      vim.list_contains({ "commit", "jjdescription" }, vim.b[args.buf].filetype)
 
     if not is_valid_line or is_commit then
       return
@@ -453,7 +451,7 @@ vim.opt.undofile = true
 -- Add dedicated key bindings for yanking to and pasting from the system
 -- clipboard.
 map({ "n", "v" }, "<C-y>", '"+y', { desc = "Yank to clipboard" })
-map({ "n", "v" }, "<C-p>", '"+p', { desc = "Paste from clipboard "})
+map({ "n", "v" }, "<C-p>", '"+p', { desc = "Paste from clipboard" })
 
 -- Associate the GLSL filetype with the typical file extensions used for
 -- shaders.
