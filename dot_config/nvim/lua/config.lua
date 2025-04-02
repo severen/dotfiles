@@ -450,8 +450,10 @@ vim.opt.listchars = {
 -- Persist undo history.
 vim.opt.undofile = true
 
--- TODO: Replace with a ctrl+y binding for yank to clipboard.
-vim.opt.clipboard:append({ "unnamedplus" })
+-- Add dedicated key bindings for yanking to and pasting from the system
+-- clipboard.
+map({ "n", "v" }, "<C-y>", '"+y', { desc = "Yank to clipboard" })
+map({ "n", "v" }, "<C-p>", '"+p', { desc = "Paste from clipboard "})
 
 -- Associate the GLSL filetype with the typical file extensions used for
 -- shaders.
