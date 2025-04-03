@@ -69,15 +69,45 @@ require("lazy").setup({
   },
   {
     "nvim-lualine/lualine.nvim",
-    name = "lualine",
     event = "VeryLazy",
     dependencies = { "kyazdani42/nvim-web-devicons" },
     opts = {
       options = {
         theme = "catppuccin",
-        component_separators = { left = "|", right = "|" },
-        section_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
+        -- Only display one 'global' status line rather than one per window.
+        globalstatus = true,
       },
+      sections = {
+        lualine_a = {
+          { "mode", separator = { left = "" }, right_padding = 2 },
+        },
+        lualine_b = { "filename", "branch" },
+        lualine_c = { },
+        lualine_x = {},
+        lualine_y = {
+          "filetype",
+          {
+            "fileformat",
+            separator = { right = "" },
+            padding = { left = 1, right = 0 },
+          },
+          "encoding",
+          "progress",
+        },
+        lualine_z = {
+          { "location", separator = { right = "" }, left_padding = 2 },
+        },
+      },
+      inactive_sections = {
+        lualine_a = { "filename" },
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = { "location" },
+      },
+      extensions = { "lazy", "mundo", "quickfix" },
     },
   },
   { "stevearc/dressing.nvim", name = "dressing", event = "VeryLazy" },
