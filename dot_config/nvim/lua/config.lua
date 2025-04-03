@@ -283,6 +283,7 @@ require("lazy").setup({
   {
     "folke/todo-comments.nvim",
     dependencies = { "folke/snacks.nvim" },
+    event = { "BufNewFile", "BufReadPost" },
     opts = {},
     keys = {
       {
