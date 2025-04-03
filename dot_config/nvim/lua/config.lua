@@ -326,12 +326,6 @@ require("lazy").setup({
   { "echasnovski/mini.comment", config = true },
   { "kylechui/nvim-surround", config = true },
   {
-    "andymass/vim-matchup",
-    config = function()
-      vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
-    end,
-  },
-  {
     "ggandor/leap.nvim",
     name = "leap",
     config = function()
@@ -411,7 +405,6 @@ require("lazy").setup({
           additional_vim_regex_highlighting = false,
         },
         indent = { enable = true },
-        matchup = { enable = true },
         playground = { enable = true },
       })
     end,
