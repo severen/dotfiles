@@ -406,11 +406,9 @@ require("lazy").setup({
           additional_vim_regex_highlighting = false,
         },
         indent = { enable = true },
-        playground = { enable = true },
       })
     end,
   },
-  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
   { "Shirk/vim-gas" },
   { "lervag/vimtex", ft = "tex" },
   {
