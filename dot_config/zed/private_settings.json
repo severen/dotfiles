@@ -10,6 +10,9 @@
   "buffer_font_family": "JetBrains Mono",
   "buffer_font_features": { "zero": true },
   "buffer_line_height": "standard",
+  "edit_predictions": {
+    "mode": "subtle"
+  },
   "edit_predictions_disabled_in": ["comment"],
   "features": {
     "edit_prediction_provider": "zed"
