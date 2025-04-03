@@ -397,6 +397,7 @@ require("lazy").setup({
           "vim",
           "vimdoc",
           "wgsl",
+          "wit",
           "yaml",
           "zig",
         },
