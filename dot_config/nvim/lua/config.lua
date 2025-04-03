@@ -84,7 +84,7 @@ require("lazy").setup({
           { "mode", separator = { left = "" }, right_padding = 2 },
         },
         lualine_b = { "filename", "branch" },
-        lualine_c = { },
+        lualine_c = {},
         lualine_x = {},
         lualine_y = {
           "filetype",
