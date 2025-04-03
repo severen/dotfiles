@@ -287,6 +287,11 @@ require("lazy").setup({
     opts = {
       search = { pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]] },
       highlight = { pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]] },
+      keywords = {
+        -- This keyword is often used in Rust code to mark comments justifying
+        -- why the code inside an unsafe block is actually safe.
+        SAFETY = { icon = "☢", color = "warning" },
+      }
     },
     keys = {
       {
