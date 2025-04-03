@@ -284,7 +284,10 @@ require("lazy").setup({
     "folke/todo-comments.nvim",
     dependencies = { "folke/snacks.nvim" },
     event = { "BufNewFile", "BufReadPost" },
-    opts = {},
+    opts = {
+      search = { pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]] },
+      highlight = { pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]] },
+    },
     keys = {
       {
         "<leader>st",
