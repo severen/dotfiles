@@ -37,8 +37,8 @@ vim.g.maplocalleader = " m"
 local lazy_config = {
   performance = {
     rtp = {
-      -- These bundled plugins are either not used by me or superseded by
-      -- another plugin.
+      -- Prevent loading bundled plugins that are not required or superseded by
+      -- other plugins.
       disabled_plugins = {
         "gzip",
         "matchit",
@@ -46,6 +46,7 @@ local lazy_config = {
         "netrwPlugin",
         "tarPlugin",
         "tohtml",
+        "tutor",
         "zipPlugin",
       },
     },
