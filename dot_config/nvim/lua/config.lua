@@ -500,6 +500,12 @@ vim.opt.gdefault = true
 vim.opt.scrolloff = 4
 vim.opt.sidescrolloff = 4
 
+-- Enable Tree-Sitter-powered folding and automatically close folds that are 12
+-- or more levels deep. That much nesting should be fairly rare.
+vim.opt.foldlevel = 12
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
 -- Enable relative line numbers.
 vim.opt.number = true
 vim.opt.relativenumber = true
