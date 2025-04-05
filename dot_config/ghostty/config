@@ -1,7 +1,7 @@
 command = fish
 
 font-family = Berkeley Mono Variable
-font-family = Monaspace Neon
+font-family = JetBrains Mono
 font-size = 13
 font-feature = zero
 
