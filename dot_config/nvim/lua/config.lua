@@ -143,6 +143,15 @@ require("lazy").setup({
       input = { enabled = true },
       picker = { enabled = true },
       session = { enabled = true },
+      statuscolumn = {
+        enabled = true,
+        folds = {
+          -- Display an icon for an open fold.
+          open = true,
+          -- Indicate added, changed, and deleted lines.
+          git_hl = true,
+        },
+      },
       zen = { enabled = true },
     },
     keys = {
