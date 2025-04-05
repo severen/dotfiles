@@ -520,6 +520,7 @@ vim.opt.sidescrolloff = 4
 vim.opt.foldlevel = 12
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.fillchars:append({ fold = " " })
 
 -- Enable relative line numbers.
 vim.opt.number = true
@@ -683,4 +684,4 @@ vim.opt.spell = true
 
 -- ⦄
 
--- vim: set et foldlevel=0 foldmethod=marker foldmarker=⦃,⦄:
+-- vim: set foldlevel=0 foldmethod=marker foldmarker=⦃,⦄:
