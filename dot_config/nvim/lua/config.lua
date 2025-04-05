@@ -66,6 +66,13 @@ require("lazy").setup({
     opts = {
       show_end_of_buffer = true,
       dim_inactive = { enabled = true },
+      custom_highlights = function(colors)
+        return {
+          -- Make the background for folds slightly more muted than the default
+          -- of `colors.surface1`.
+          Folded = { bg = colors.surface0 },
+        }
+      end,
     },
   },
   {
