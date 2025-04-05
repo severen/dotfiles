@@ -1,7 +1,13 @@
 command = fish
 
-font-size = 11
+font-family = Berkeley Mono Variable
+font-family = Monaspace Neon
+font-size = 13
 font-feature = zero
+
+adjust-overline-thickness = -30%
+adjust-underline-thickness = -30%
+adjust-strikethrough-thickness = -30%
 
 theme = dark:catppuccin-mocha,light:catppuccin-latte
 
