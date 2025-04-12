@@ -4,6 +4,8 @@ font-family = Berkeley Mono Variable
 font-family = JetBrains Mono
 font-size = 13
 font-feature = zero
+font-variation-bold = wght=600
+font-variation-bold-italic = wght=600
 
 adjust-overline-thickness = -30%
 adjust-underline-thickness = -30%
