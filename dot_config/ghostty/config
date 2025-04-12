@@ -18,6 +18,7 @@ theme = dark:catppuccin-mocha,light:catppuccin-latte
 window-theme = ghostty
 window-padding-balance = true
 window-padding-color = extend
+window-subtitle = working-directory
 
 cursor-invert-fg-bg = true
 
