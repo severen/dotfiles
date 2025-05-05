@@ -22,12 +22,13 @@ private-commits = "private() | wip()"
 "slice(x)" = "slice(x, 2)"
 "slice(x, n)" = "ancestors(mutable() & (..x | x::), n)"
 
-"open()" = "open(mine())"
-# The revisions in domain which are not merged into trunk().
-"open(domain)" = "domain ~ ::immutable_heads()"
-
 # Find the closest bookmarks to x.
 "streams(x)" = "heads(::x & bookmarks())"
+
+# Select all revisions descended from trunk() and authored by me, but not merged
+# into trunk().
+"open()" = "open(2)"
+"open(n)" = "slice(trunk().. & mine(), n)"
 
 "wip()" = "description(glob:'wip:*')"
 "private()" = "description(glob:'private:*')"
