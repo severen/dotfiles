@@ -16,9 +16,11 @@ push-bookmark-prefix = "severen/push-"
 private-commits = "description(glob:'private:*') | description(glob:'wip:*')"
 
 [revset-aliases]
+# Select the entire branch (and all sub-branches thereof if there are merges)
+# that x belongs to.
 "slice()" = "slice(@)"
-# View the entire branch (and all sub-branches thereof) that x belongs to.
-"slice(x)" = "ancestors(reachable(x, mutable()), 2)"
+"slice(x)" = "slice(x, 2)"
+"slice(x, n)" = "ancestors(mutable() & (..x | x::), n)"
 "open()" = "open(mine())"
 # The revisions in domain which are not merged into trunk().
 "open(domain)" = "domain ~ ::immutable_heads()"
