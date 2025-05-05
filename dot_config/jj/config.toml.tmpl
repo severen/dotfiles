@@ -16,13 +16,17 @@ push-bookmark-prefix = "severen/push-"
 private-commits = "private() | wip()"
 
 [revset-aliases]
+"wip()" = "description(glob:'wip:*')"
+"private()" = "description(glob:'private:*')"
+
 # Select the entire branch (and all sub-branches thereof if there are merges)
 # that x belongs to.
 "slice()" = "slice(@)"
 "slice(x)" = "slice(x, 2)"
 "slice(x, n)" = "ancestors(mutable() & (..x | x::), n)"
 
-# Find the closest bookmarks to x.
+# Select the closest bookmarks to x.
+"streams()" = "streams(@)"
 "streams(x)" = "heads(::x & bookmarks())"
 
 # Select all revisions descended from trunk() and authored by me, but not merged
@@ -30,12 +34,9 @@ private-commits = "private() | wip()"
 "open()" = "open(2)"
 "open(n)" = "slice(trunk().. & mine(), n)"
 
-"wip()" = "description(glob:'wip:*')"
-"private()" = "description(glob:'private:*')"
-
 [aliases]
 up = ["rebase", "--skip-emptied", "-d", "trunk()"]
 # Note that if `@-` descends from a merge commit, the last bookmark on each
 # contributing branch will be moved to `@-`.
-tug = ["bookmark", "move", "--from", "streams(@-)", "--to", "@-"]
+tug = ["bookmark", "move", "--from", "streams()", "--to", "@-"]
 blame = ["file", "annotate"]
