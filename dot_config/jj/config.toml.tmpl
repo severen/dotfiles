@@ -44,4 +44,12 @@ up = ["rebase", "--skip-emptied", "-d", "trunk()"]
 # Note that if `@-` descends from a merge commit, the last bookmark on each
 # contributing branch will be moved to `@-`.
 tug = ["bookmark", "move", "--from", "streams()", "--to", "@-"]
+streams = [
+  "log",
+  "--no-graph",
+  "-r",
+  "streams()",
+  "-T",
+  "bookmarks.map(|b| b ++ ' ')"
+]
 blame = ["file", "annotate"]
