@@ -16,11 +16,6 @@ write-change-id-header = true
 push-bookmark-prefix = "severen/push-"
 private-commits = "private() | wip()"
 
-[revsets]
-# Give revisions belonging to the current branch greater priority when assigning
-# short ID prefixes.
-short-prefixes = "slice()"
-
 [revset-aliases]
 "wip()" = "description(glob:'wip:*')"
 "private()" = "description(glob:'private:*')"
