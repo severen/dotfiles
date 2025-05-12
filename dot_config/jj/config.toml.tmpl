@@ -44,6 +44,7 @@ private-commits = "private() | wip()"
 "open(n)" = "slice(trunk().. & mine(), n)"
 
 [aliases]
+d = ["diff"]
 up = ["rebase", "--skip-emptied", "-d", "trunk()"]
 # Note that if `@-` descends from a merge commit, the last bookmark on each
 # contributing branch will be moved to `@-`.
