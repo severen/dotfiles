@@ -14,6 +14,11 @@ default-command = "log"
 [merge-tools.difft]
 diff-args = ["--color=always", "$left", "$right"]
 
+[merge-tools.mergiraf]
+merge-args = ["merge", "$base", "$left", "$right", "-o", "$output", "--fast"]
+merge-conflict-exit-codes = [1]
+conflict-marker-style = "git"
+
 [git]
 write-change-id-header = true
 push-bookmark-prefix = "severen/push-"
