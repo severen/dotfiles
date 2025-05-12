@@ -46,7 +46,12 @@ private-commits = "private() | wip()"
 [aliases]
 d = ["diff"]
 s = ["show"]
+ll = ["log", "-T", "builtin_log_detailed"]
+
+blame = ["file", "annotate"]
+
 up = ["rebase", "--skip-emptied", "-d", "trunk()"]
+
 # Note that if `@-` descends from a merge commit, the last bookmark on each
 # contributing branch will be moved to `@-`.
 tug = ["bookmark", "move", "--from", "streams()", "--to", "@-"]
@@ -58,7 +63,6 @@ streams = [
   "-T",
   "bookmarks.map(|b| b ++ ' ')"
 ]
-blame = ["file", "annotate"]
 
 [template-aliases]
 "in_branch(x)" = 'x.contained_in("immutable_heads()..bookmarks()")'
