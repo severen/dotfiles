@@ -4,7 +4,11 @@ encryption = "age"
 command = "./.update.sh"
 
 [diff]
-command = "delta"
+command = "sh"
+args = [
+  "-c",
+  'difft --color=always {{ "{{ .Destination }} {{ .Target }}" }} | less'
+]
 
 [age]
 identity = "~/.config/chezmoi/key.txt"
