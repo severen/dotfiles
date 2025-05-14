@@ -27,6 +27,10 @@ private-commits = "private() | wip()"
 [revset-aliases]
 "wip()" = "description(glob:'wip:*')"
 "private()" = "description(glob:'private:*')"
+"undescribed()" = "description(exact:'')"
+
+# All revisions which are permitted to be pushed to a remote.
+"pushable()" = "mutable() ~ empty() ~ undescribed() ~ private() ~ wip()"
 
 # Select the entire branch (and all sub-branches thereof if there are merges)
 # that x belongs to.
@@ -34,7 +38,7 @@ private-commits = "private() | wip()"
 "slice(x)" = "slice(x, 2)"
 "slice(x, n)" = "ancestors(mutable() & (..x | x::), n)"
 
-# Select the closest bookmarks to x.
+# The nearest ancestor revisions to x which have one or more local bookmarks.
 "streams()" = "streams(@)"
 "streams(x)" = "heads(::x & bookmarks())"
 
@@ -52,9 +56,20 @@ blame = ["file", "annotate"]
 
 up = ["rebase", "--skip-emptied", "-d", "trunk()"]
 
-# Note that if `@-` descends from a merge commit, the last bookmark on each
-# contributing branch will be moved to `@-`.
-tug = ["bookmark", "move", "--from", "streams()", "--to", "@-"]
+# Note that if `@` descends from a merge commit of bookmarked branches,
+# `pushable_heads()` will resolve to more than one revision and the command will
+# fail. This is deliberate because there's no situation where I would actually
+# want all bookmarks on the independent branches to be move to the _same_
+# closest pushable on or after the merge.
+tug = [
+  "bookmark",
+  "move",
+  "--from",
+  "streams()",
+  "--to",
+  "heads(::@ & pushable() ~ merges())"
+]
+
 streams = [
   "log",
   "--no-graph",
