@@ -2,6 +2,8 @@ README.md
 LICENSE
 key.txt.age
 
+.update.sh
+
 {{ if not (eq .chezmoi.hostname "baldr" "fenrir") -}}
 .ssh/id_ed25519
 .ssh/id_ed25519.pub
