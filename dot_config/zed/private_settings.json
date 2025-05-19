@@ -7,7 +7,6 @@
     },
     "version": "2"
   },
-  "autosave": "on_focus_change",
   "buffer_font_family": "Berkeley Mono Variable",
   "buffer_font_features": { "zero": true },
   "buffer_font_size": 16,
