@@ -24,4 +24,6 @@ cursor-invert-fg-bg = true
 
 mouse-hide-while-typing = true
 
+keybind = ctrl+shift+j=write_scrollback_file:paste
+keybind = super+ctrl+shift+j=write_scrollback_file:open
 keybind = performable:ctrl+c=copy_to_clipboard
