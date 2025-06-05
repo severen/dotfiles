@@ -367,12 +367,12 @@ require("lazy").setup({
   -- Language Support ⦃
   {
     "nvim-treesitter/nvim-treesitter",
+    -- TODO: Remove this once main is the default branch.
+    branch = "main",
+    lazy = false,
     build = function()
-      require("nvim-treesitter.install").update({ with_sync = true })()
-    end,
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
+      local ts = require("nvim-treesitter")
+      ts.install({
           "bash",
           "bibtex",
           "c",
@@ -424,13 +424,8 @@ require("lazy").setup({
           "wit",
           "yaml",
           "zig",
-        },
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-        indent = { enable = true },
       })
+      ts.update()
     end,
   },
   { "Shirk/vim-gas" },
