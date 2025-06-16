@@ -22,6 +22,11 @@ Host *.sitehost.nz *.sitehost.co.nz *.shq.nz *.webslice.co.nz 192.168.7.* 192.16
   # We have lots of _old_ servers and unfortunately I can't upgrade them all
   # myself.
   PubkeyAcceptedAlgorithms +ssh-rsa
+
+Host 192.168.7.* 192.168.12.*
+  # These IP addresses are often re-used at work, which prompts SSH to complain
+  # if this is enabled.
+  StrictHostKeyChecking no
 {{- end }}
 
 Host aur.archlinux.org
