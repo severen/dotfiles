@@ -20,7 +20,6 @@ merge-conflict-exit-codes = [1]
 conflict-marker-style = "git"
 
 [git]
-push-bookmark-prefix = "severen/push-"
 private-commits = "private() | wip()"
 
 [revset-aliases]
@@ -82,6 +81,7 @@ streams = [
 "in_branch(x)" = 'x.contained_in("immutable_heads()..bookmarks()")'
 
 [templates]
+git_push_bookmark = '"severen/push-" ++ change_id.short()'
 log_node = """
 if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
   "◇",
