@@ -13,7 +13,7 @@ adjust-overline-thickness = -30%
 adjust-underline-thickness = -30%
 adjust-strikethrough-thickness = -30%
 
-theme = dark:catppuccin-mocha,light:catppuccin-latte
+theme = dark:Catppuccin Mocha,light:Catppuccin Latte
 
 window-theme = ghostty
 window-padding-balance = true
