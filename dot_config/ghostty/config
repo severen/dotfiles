@@ -20,7 +20,8 @@ window-padding-balance = true
 window-padding-color = extend
 window-subtitle = working-directory
 
-cursor-invert-fg-bg = true
+cursor-color = cell-foreground
+cursor-text = cell-background
 
 mouse-hide-while-typing = true
 
