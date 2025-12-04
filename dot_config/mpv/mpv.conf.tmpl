@@ -1,4 +1,4 @@
-{{ if not eq .chezmoi.hostname "fenrir" }}
+{{ if not (eq .chezmoi.hostname "fenrir") }}
 profile=high-quality
 {{ end }}
 
@@ -6,7 +6,7 @@ profile=high-quality
 # be no issues with enabling the use of both APIs.
 vo=gpu-next
 gpu-api=vulkan
-hwdec=vaapi
+hwdec=vulkan
 
 video-sync=display-resample
 
