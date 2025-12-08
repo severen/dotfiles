@@ -1,7 +1,6 @@
 command = fish
 
 font-family = Berkeley Mono Variable
-font-family = JetBrains Mono
 font-size = 13
 font-feature = zero
 font-variation-bold = wght=600
