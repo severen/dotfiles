@@ -10,6 +10,9 @@ email = "severen.redwood@sitehost.co.nz"
 
 [ui]
 default-command = "log"
+# The default flags are `-FRX`, which stops mouse scrolling from functioning and
+# the screen being cleared when closing less.
+pager = "less -FR"
 
 [merge-tools.difft]
 diff-args = ["--color=always", "$left", "$right"]
