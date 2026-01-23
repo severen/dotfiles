@@ -2,42 +2,44 @@
   "agent": {
     "model_parameters": [],
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
+      "provider": "google",
+      "model": "gemini-3-pro-preview",
     },
-    "version": "2"
+  },
+  "which_key": {
+    "enabled": true,
   },
   "buffer_font_family": "Berkeley Mono Variable",
   "buffer_font_features": { "zero": true },
   "buffer_font_size": 16,
   "buffer_line_height": "standard",
   "edit_predictions": {
-    "mode": "subtle"
+    "mode": "subtle",
   },
   "edit_predictions_disabled_in": ["comment"],
   "features": {
-    "edit_prediction_provider": "zed"
+    "edit_prediction_provider": "zed",
   },
   "languages": {
     "Markdown": {
-      "show_edit_predictions": false
-    }
+      "show_edit_predictions": false,
+    },
   },
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "scroll_beyond_last_line": "off",
   "terminal": {
     "shell": {
-      "program": "fish"
-    }
+      "program": "fish",
+    },
   },
   "theme": {
     "mode": "system",
     "light": "Catppuccin Latte",
-    "dark": "Catppuccin Mocha"
+    "dark": "Catppuccin Mocha",
   },
   "vim": {
-    "toggle_relative_line_numbers": true
+    "toggle_relative_line_numbers": true,
   },
   "vim_mode": true,
-  "wrap_guides": [80]
+  "wrap_guides": [80],
 }
