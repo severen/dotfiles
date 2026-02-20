@@ -11,6 +11,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 # directories standard. A lot of these environment variables simply move the
 # program's catch-all directories from $HOME to $XDG_DATA_HOME, which while not
 # _entirely_ standards compliant, at least cleans up $HOME.
+export ELAN_HOME="$XDG_DATA_HOME/elan"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GHCUP_USE_XDG_DIRS="yes"
