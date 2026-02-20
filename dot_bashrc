@@ -54,7 +54,7 @@ HISTFILE="$XDG_DATA_HOME/bash/history"
 
 PS1="[\u@\h \W]\$ "
 
-if command -v exa &> /dev/null; then
+if command -v eza &> /dev/null; then
   cmd="eza --color=auto --hyperlink --classify --group-directories-first"
   alias ls="$cmd"
   alias ll="$cmd --long --header --group --git"
