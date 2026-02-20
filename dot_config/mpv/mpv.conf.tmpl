@@ -1,14 +1,15 @@
-{{ if not (eq .chezmoi.hostname "fenrir") }}
 profile=high-quality
-{{ end }}
 
-# All of my machines currently support Vulkan and Vulkan Video, so there should
-# be no issues with enabling the use of both APIs.
 vo=gpu-next
 gpu-api=vulkan
+
+{{ if eq .chezmoi.hostname "baldr" -}}
 hwdec=vulkan
 
 video-sync=display-resample
+{{- else -}}
+hwdec=vaapi
+{{- end }}
 
 interpolation
 tscale=oversample
