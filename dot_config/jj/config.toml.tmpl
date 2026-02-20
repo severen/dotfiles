@@ -14,6 +14,9 @@ default-command = "log"
 # the screen being cleared when closing less.
 pager = "less -FR"
 
+[merge]
+hunk-level = "word"
+
 [merge-tools.difft]
 diff-args = ["--color=always", "$left", "$right"]
 
