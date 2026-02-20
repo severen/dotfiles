@@ -1,9 +1,12 @@
 {
+  "$schema": "https://pi.dev/schemas/settings.schema.json",
+  "defaultModel": "deepseek/DeepSeek-V4.1-Flash",
+  "defaultProvider": "sitehost",
   "defaultTools": [
     "+codemode"
   ],
-  "lastChangelogVersion": "1.3.0",
   "hideThinkingBlock": true,
+  "lastChangelogVersion": "1.4.0",
   "packages": [],
   "terminal": {
     "showTerminalProgress": true
