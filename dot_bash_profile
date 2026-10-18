@@ -13,7 +13,6 @@ export XDG_CACHE_HOME="$HOME/.cache"
 # _entirely_ standards compliant, at least cleans up $HOME.
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export ELAN_HOME="$XDG_DATA_HOME/elan"
-export ELAN_HOME="$XDG_DATA_HOME/elan"
 export GDBHISTORY="$XDG_DATA_HOME/gdb/history"
 export GHCUP_USE_XDG_DIRS="yes"
 export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
