@@ -1,0 +1,21 @@
+{
+  // Editor/type-checking support only: Pi loads extensions with jiti and
+  // supplies these modules itself at runtime. Paths point at the global Pi
+  // install, so they follow Pi upgrades.
+  "compilerOptions": {
+    "target": "ES2024",
+    "lib": ["ES2024"],
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "typeRoots": ["/usr/lib/node_modules/pi/node_modules/@types"],
+    "paths": {
+      "*": ["/usr/lib/node_modules/pi/node_modules/*"]
+    }
+  },
+  "include": ["*.ts", "*/**/*.ts"]
+}
