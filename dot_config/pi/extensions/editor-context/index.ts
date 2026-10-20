@@ -94,8 +94,9 @@ function parseState(
     file === "" ||
     !Number.isInteger(line) ||
     !Number.isInteger(col)
-  )
+  ) {
     return;
+  }
   const state: EditorState = {
     file: isAbsolute(file) || !cwd ? file : resolve(cwd, file),
     line: line as number,
@@ -104,7 +105,9 @@ function parseState(
   const sel = selection as EditorState["selection"];
   if (sel && isPosition(sel.start) && isPosition(sel.end)) {
     state.selection = { start: sel.start, end: sel.end };
-    if (typeof sel.text === "string") state.selection.text = sel.text;
+    if (typeof sel.text === "string") {
+      state.selection.text = sel.text;
+    }
   }
   return state;
 }
@@ -170,14 +173,17 @@ export default function (pi: ExtensionAPI) {
   const current = (cwd: string): Editor | undefined => {
     let best: Editor | undefined;
     for (const editor of editors.values()) {
-      if (isRelevant(editor, cwd) && (!best || editor.updated > best.updated))
+      if (isRelevant(editor, cwd) && (!best || editor.updated > best.updated)) {
         best = editor;
+      }
     }
     return best;
   };
 
   const updateStatus = () => {
-    if (!ctx?.hasUI) return;
+    if (!ctx?.hasUI) {
+      return;
+    }
     const editor = current(ctx.cwd);
     const state = editor?.state;
     ctx.ui.setStatus(
@@ -195,17 +201,23 @@ export default function (pi: ExtensionAPI) {
     } catch {
       return;
     }
-    if (typeof msg !== "object" || msg === null) return;
+    if (typeof msg !== "object" || msg === null) {
+      return;
+    }
     switch (msg.type) {
       case "hello":
-        if (typeof msg.editor === "string" && msg.editor !== "")
+        if (typeof msg.editor === "string" && msg.editor !== "") {
           editor.name = msg.editor;
-        if (typeof msg.cwd === "string" && isAbsolute(msg.cwd))
+        }
+        if (typeof msg.cwd === "string" && isAbsolute(msg.cwd)) {
           editor.cwd = msg.cwd;
+        }
         break;
       case "state": {
         const state = parseState(msg, editor.cwd);
-        if (!state) return;
+        if (!state) {
+          return;
+        }
         editor.state = state;
         editor.updated = Date.now();
         break;
@@ -235,10 +247,14 @@ export default function (pi: ExtensionAPI) {
       while (newline !== -1) {
         const line = buffer.slice(0, newline).trim();
         buffer = buffer.slice(newline + 1);
-        if (line) handleMessage(editor, line);
+        if (line) {
+          handleMessage(editor, line);
+        }
         newline = buffer.indexOf("\n");
       }
-      if (buffer.length > MAX_LINE_BYTES) socket.destroy();
+      if (buffer.length > MAX_LINE_BYTES) {
+        socket.destroy();
+      }
     });
     socket.on("error", () => socket.destroy());
     socket.on("close", () => {
@@ -252,10 +268,16 @@ export default function (pi: ExtensionAPI) {
     const path = socketPath;
     server = undefined;
     socketPath = undefined;
-    for (const socket of editors.keys()) socket.destroy();
+    for (const socket of editors.keys()) {
+      socket.destroy();
+    }
     editors.clear();
-    if (s) await new Promise<void>((done) => s.close(() => done()));
-    if (path) await unlink(path).catch(() => {});
+    if (s) {
+      await new Promise<void>((done) => s.close(() => done()));
+    }
+    if (path) {
+      await unlink(path).catch(() => {});
+    }
   };
 
   pi.on("session_start", async (_event, sessionCtx) => {
@@ -292,23 +314,31 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.on("session_shutdown", async () => {
-    if (ctx?.hasUI) ctx.ui.setStatus("editor", undefined);
+    if (ctx?.hasUI) {
+      ctx.ui.setStatus("editor", undefined);
+    }
     ctx = undefined;
     await stop();
   });
 
   pi.on("before_agent_start", (event, runCtx) => {
-    if (event.messageType !== "user") return;
+    if (event.messageType !== "user") {
+      return;
+    }
     const editor = current(runCtx.cwd);
     const state = editor?.state;
     // Report a newly unfocused editor once, so the model doesn't keep
     // assuming the last position it was told about.
     const fingerprint = state ? JSON.stringify(state) : undefined;
-    if (fingerprint === lastReported) return;
+    if (fingerprint === lastReported) {
+      return;
+    }
     const hadReported = lastReported !== undefined;
     lastReported = fingerprint;
     if (!editor || !state) {
-      if (!hadReported) return;
+      if (!hadReported) {
+        return;
+      }
       return {
         message: {
           customType: "editor-context",

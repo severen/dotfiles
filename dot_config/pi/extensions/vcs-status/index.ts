@@ -141,7 +141,9 @@ export default function (pi: ExtensionAPI) {
 
     // Snapshot first (when allowed) so the follow-up queries see the same @.
     const main = await jj(["log", "-r", "@", "-T", JJ_TEMPLATE], !agentRunning);
-    if (main === undefined) return;
+    if (main === undefined) {
+      return;
+    }
     const [
       changePrefix,
       changeRest,
@@ -206,7 +208,9 @@ export default function (pi: ExtensionAPI) {
       git(["log", "-1", "--format=%h%x1f%s"]),
       git(["diff", "HEAD", "--numstat"]),
     ]);
-    if (status === undefined) return;
+    if (status === undefined) {
+      return;
+    }
 
     const result: GitStatus = {
       kind: "git",
@@ -226,7 +230,9 @@ export default function (pi: ExtensionAPI) {
     for (const line of status.split("\n")) {
       if (line.startsWith("# branch.head ")) {
         const head = line.slice("# branch.head ".length);
-        if (head !== "(detached)") result.branch = head;
+        if (head !== "(detached)") {
+          result.branch = head;
+        }
       } else if (line.startsWith("# branch.ab ")) {
         const m = /\+(\d+) -(\d+)/.exec(line);
         if (m) {
@@ -275,7 +281,9 @@ export default function (pi: ExtensionAPI) {
       cwd,
       signal,
     );
-    if (gitDir !== undefined) return readGit(cwd, gitDir.trim(), signal);
+    if (gitDir !== undefined) {
+      return readGit(cwd, gitDir.trim(), signal);
+    }
   };
 
   const format = (status: VcsStatus, c: ExtensionContext): string => {
@@ -299,8 +307,12 @@ export default function (pi: ExtensionAPI) {
             t.fg("dim", distance),
         );
       }
-      if (status.conflict) parts.push(t.fg("error", "conflict"));
-      if (status.divergent) parts.push(t.fg("warning", "divergent"));
+      if (status.conflict) {
+        parts.push(t.fg("error", "conflict"));
+      }
+      if (status.divergent) {
+        parts.push(t.fg("warning", "divergent"));
+      }
       if (status.empty) {
         parts.push(t.fg("dim", "(empty)"));
       } else {
@@ -325,34 +337,47 @@ export default function (pi: ExtensionAPI) {
         status.ahead && `↑${status.ahead}`,
         status.behind && `↓${status.behind}`,
       ].filter(Boolean);
-      if (ab.length > 0) parts.push(t.fg("accent", ab.join("")));
-      if (status.state) parts.push(t.fg("warning", status.state));
-      if (status.conflicts > 0)
+      if (ab.length > 0) {
+        parts.push(t.fg("accent", ab.join("")));
+      }
+      if (status.state) {
+        parts.push(t.fg("warning", status.state));
+      }
+      if (status.conflicts > 0) {
         parts.push(t.fg("error", `${status.conflicts} conflicted`));
+      }
       if (status.files > 0 || status.untracked > 0) {
         let changes = diffStat(status.added, status.removed);
-        if (status.files > 0) changes += t.fg("dim", ` ${status.files}f`);
-        if (status.untracked > 0)
+        if (status.files > 0) {
+          changes += t.fg("dim", ` ${status.files}f`);
+        }
+        if (status.untracked > 0) {
           changes += t.fg("dim", ` ?${status.untracked}`);
+        }
         parts.push(changes);
       } else {
         parts.push(t.fg("dim", "(clean)"));
       }
-      if (status.subject)
+      if (status.subject) {
         parts.push(t.fg("muted", truncate(status.subject, DESCRIPTION_CHARS)));
+      }
     }
 
     return parts.join(" ");
   };
 
   const setStatus = (text: string | undefined) => {
-    if (!ctx?.hasUI || text === shown) return;
+    if (!ctx?.hasUI || text === shown) {
+      return;
+    }
     shown = text;
     ctx.ui.setStatus(STATUS_KEY, text);
   };
 
   const refresh = async () => {
-    if (!ctx?.hasUI) return;
+    if (!ctx?.hasUI) {
+      return;
+    }
     if (inFlight) {
       pending = true;
       return;
@@ -364,8 +389,9 @@ export default function (pi: ExtensionAPI) {
     try {
       const status = await read(current.cwd, signal);
       // The session may have been replaced while the commands ran.
-      if (ctx === current && !signal.aborted)
+      if (ctx === current && !signal.aborted) {
         setStatus(status && format(status, current));
+      }
     } catch {
       // Keep the last status; a transient failure (lock contention, timeout)
       // shouldn't blank it.
@@ -398,7 +424,9 @@ export default function (pi: ExtensionAPI) {
     ctx = sessionCtx;
     shown = undefined;
     agentRunning = false;
-    if (!sessionCtx.hasUI) return;
+    if (!sessionCtx.hasUI) {
+      return;
+    }
     void refresh();
     poll = setInterval(() => void refresh(), POLL_MS);
     poll.unref();
@@ -406,7 +434,9 @@ export default function (pi: ExtensionAPI) {
 
   pi.on("session_shutdown", () => {
     stop();
-    if (ctx?.hasUI) ctx.ui.setStatus(STATUS_KEY, undefined);
+    if (ctx?.hasUI) {
+      ctx.ui.setStatus(STATUS_KEY, undefined);
+    }
     ctx = undefined;
     shown = undefined;
   });

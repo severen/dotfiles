@@ -5,6 +5,20 @@
     "indentWidth": 2,
     "lineWidth": 80
   },
+  "linter": {
+    "rules": {
+      "style": {
+        "useBlockStatements": { "level": "error", "fix": "safe" }
+      },
+      "suspicious": {
+        "useAwait": "warn",
+        "noEmptyBlockStatements": "warn"
+      },
+      "performance": {
+        "useTopLevelRegex": "warn"
+      }
+    }
+  },
   "javascript": {
     "formatter": {
       "trailingCommas": "all"
