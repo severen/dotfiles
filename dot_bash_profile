@@ -56,8 +56,8 @@ export DIFFPROG="nvim -d"
 export PAGER="less"
 
 # Configure less to use incremental search with smart case, decrease the tab
-# size, and quit if the content fits on one screen.
-export LESS="-R --incsearch --ignore-case --tabs=2 --quit-if-one-screen"
+# size, quit if the content fits on one screen, and gracefully exit on Ctrl+C.
+export LESS="-R --incsearch --ignore-case --tabs=2 --quit-if-one-screen --quit-on-intr"
 
 if [[ "$(uname -n)" != "yggdrasill" ]]; then
   # Direct programs that expect a Docker daemon socket to Podman's compatible
