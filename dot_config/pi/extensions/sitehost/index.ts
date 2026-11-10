@@ -22,10 +22,15 @@ const DEFAULT_CONFIG: Omit<ChatModelConfig, "id" | "name"> = {
   contextWindow: 128000,
   maxTokens: 16384,
   cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-  // Add an `X-Session-ID` header containing the session ID to each API request
-  // so that that subsequent requests in the same session are routed to the same
-  // backend. Doing so ensures that the prompt cache can be reused.
   compat: {
+    // Pi sends the system prompt with the OpenAI `developer` role to reasoning
+    // models on providers it doesn't recognise. SiteHost's DeepSeek ignores
+    // `developer` messages whenever thinking is enabled, so force `system`.
+    supportsDeveloperRole: false,
+    // Add an `X-Session-ID` header containing the session ID to each API
+    // request so that that subsequent requests in the same session are routed
+    // to the same backend. Doing so ensures that the prompt cache can be
+    // reused.
     sendSessionAffinityHeaders: true,
     sessionAffinityFormat: "openrouter",
   },
