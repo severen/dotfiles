@@ -19,7 +19,7 @@
     "openrouter/google/gemini-4-argon"
   ],
   "hideThinkingBlock": true,
-  "lastChangelogVersion": "1.5.0",
+  "lastChangelogVersion": "1.5.2",
   "packages": [
     "https://github.com/earendil-works/pi-claude-code"
   ],
