@@ -1,0 +1,361 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "rich-click>=1.9",
+#     "rich>=13.7",
+# ]
+# ///
+
+"""
+Turn a natural-language request into a shell command using `pi -p`, show it,
+ask for confirmation, then run it with bash.
+"""
+
+import getpass
+import os
+import platform
+import re
+import signal
+import subprocess
+import sys
+from pathlib import Path
+from typing import Final, Literal, NoReturn, get_args
+
+import rich_click as click
+from rich.console import Console
+from rich.panel import Panel
+from rich.syntax import Syntax
+
+type Thinking = Literal["off", "minimal", "low", "medium", "high", "xhigh", "max"]
+type Decision = Literal["y", "n", "e"]
+
+THINKING_LEVELS: Final[tuple[Thinking, ...]] = get_args(Thinking.__value__)
+
+# Static rules first and per-call details (working directory) last, so the long
+# shared prefix can be served from the provider's prompt cache.
+SYSTEM_PROMPT: Final = """\
+You translate a user's request into a single shell command.
+
+Output rules:
+- Output ONLY the command itself, nothing else.
+- No explanations, no comments, no Markdown, no code fences, no backticks
+  around it, no leading $ prompt.
+- Prefer a single line; chain steps with && or pipes if needed.
+- Prefer safe, non-destructive tools.
+- Only use Bash builtins or commands from the installed commands list below.
+  Combining several of them in a pipeline is fine and often necessary.
+- If the request cannot be expressed as a shell command, do NOT invent one.
+  Instead output exactly one line:
+  {marker} <brief reason, one sentence>
+{preferences}
+Installed commands, space-separated:
+{commands}
+
+Environment:
+- Shell: bash (the command will be executed with `bash -c`)
+- OS: {os}
+- User: {user}
+- Working directory: {cwd}
+"""
+
+# Tool preferences, included only when the preferred tool is installed. Keyed by
+# the command that must be on PATH.
+PREFERENCES: Final[dict[str, str]] = {
+    "fd": "Use `fd` instead of `find` for finding files.",
+    "hyperfine": "Use `hyperfine` for benchmarking commands.",
+    "jaq": "Use `jaq` for reading or transforming JSON, YAML, and so on.",
+    "rg": "Use `rg` instead of `grep` for searching file contents.",
+    "sd": "Use `sd` instead of `sed` for simple find-and-replace.",
+}
+
+# Sentinel the model emits instead of a command when it can't fulfil the request.
+# Chosen so it can never be mistaken for (or accidentally run as) a real command.
+CANNOT_MARKER: Final = "@@PI_EXEC_CANNOT@@"
+
+FENCE_RE: Final = re.compile(r"^\s*```.*$", re.MULTILINE)
+
+console: Final = Console(stderr=True)
+
+
+def executables(directory: Path) -> set[str]:
+    """Executable file names directly inside `directory`, hidden ones skipped."""
+    try:
+        entries = list(directory.iterdir())
+    except OSError:
+        return set()
+
+    return {
+        e.name
+        for e in entries
+        if not e.name.startswith(".") and e.is_file() and os.access(e, os.X_OK)
+    }
+
+
+def installed_commands() -> set[str]:
+    """
+    Names of every executable on PATH, each listed once even if it exists in
+    several directories. Directories repeated in PATH are scanned only once.
+    """
+    commands: set[str] = set()
+    seen: set[Path] = set()
+
+    for entry in os.environ.get("PATH", "").split(os.pathsep):
+        directory = Path(entry).resolve() if entry else None
+        if directory is None or directory in seen:
+            continue
+
+        seen.add(directory)
+        commands |= executables(directory)
+
+    commands.discard("pi-exec")
+
+    return commands
+
+
+def current_user() -> str:
+    """User name for the prompt; a container with an unmapped uid has none."""
+    try:
+        return getpass.getuser()
+    except OSError:  # no environment variable and no passwd entry
+        return str(os.getuid())
+
+
+def build_system_prompt() -> str:
+    commands = installed_commands()
+
+    preferences = [rule for tool, rule in PREFERENCES.items() if tool in commands]
+    preferences_block = (
+        "\nTool preferences:\n" + "\n".join(f"- {rule}" for rule in preferences)
+        if preferences
+        else ""
+    )
+
+    return SYSTEM_PROMPT.format(
+        marker=CANNOT_MARKER,
+        preferences=preferences_block,
+        commands=" ".join(sorted(commands)),
+        os=f"{platform.system()} {platform.release()}",
+        user=current_user(),
+        cwd=os.getcwd(),
+    )
+
+
+def failure_detail(result: subprocess.CompletedProcess[str]) -> str:
+    """Human-readable reason for a failed `pi` run; a signal, not just a number."""
+    if detail := result.stderr.strip():
+        return detail
+    if result.returncode < 0:
+        signum = -result.returncode
+        try:
+            return f"killed by {signal.Signals(signum).name}"
+        except ValueError:
+            return f"killed by signal {signum}"
+    return f"exit code {result.returncode}"
+
+
+def generate_command(prompt: str, model: str | None, thinking: Thinking) -> str:
+    args: list[str] = [
+        "pi",
+        "-p",
+        "--system-prompt",
+        build_system_prompt(),
+        "--no-tools",
+        "--no-session",
+        "--no-context-files",
+        "--no-skills",
+        "--no-prompt-templates",
+        "--no-mcp",
+        "--thinking",
+        thinking,
+    ]
+    if model:
+        args += ["--model", model]
+    args += ["--", prompt]
+
+    try:
+        with console.status("[cyan]Generating command…", spinner="dots"):
+            result = subprocess.run(
+                args,
+                check=False,
+                stdin=subprocess.DEVNULL,
+                capture_output=True,
+                text=True,
+            )
+    except FileNotFoundError:
+        raise click.ClickException("`pi` not found on PATH") from None
+
+    if result.returncode != 0:
+        raise click.ClickException(f"pi failed: {failure_detail(result)}")
+
+    # Defensive cleanup in case the model wraps the command in a code fence.
+    return FENCE_RE.sub("", result.stdout).strip()
+
+
+def show_command(cmd: str) -> None:
+    console.print(
+        Panel(
+            Syntax(
+                cmd,
+                "bash",
+                theme="ansi_dark",
+                word_wrap=True,
+                background_color="default",
+            ),
+            title="Command",
+            title_align="left",
+            border_style="cyan",
+            expand=False,
+        )
+    )
+
+
+def attach_tty() -> None:
+    """
+    Point stdin (fd 0) at the terminal so the confirmation prompt works even when
+    the command's input is piped in. `confirm` restores the original fd afterwards.
+    """
+    if os.isatty(0):
+        return
+
+    try:
+        with open("/dev/tty", "rb", buffering=0) as tty:
+            os.dup2(tty.fileno(), 0)
+    except OSError:
+        msg = "no terminal available for confirmation"
+        raise click.ClickException(msg) from None
+
+
+def keep_stdin() -> int | None:
+    """
+    A duplicate of fd 0, or None when stdin already is the terminal (nothing to
+    restore) or cannot be duplicated (closed). `confirm` gives it back before the
+    command runs, so piped input still reaches the command.
+    """
+    if os.isatty(0):
+        return None
+    try:
+        return os.dup(0)
+    except OSError:
+        return None
+
+
+def ask_choice() -> Decision:
+    # The prose mirrors Decision; keep them in sync.
+    choice: Decision = click.prompt(
+        "Run this command? [y]es / [n]o / [e]dit",
+        type=click.Choice(get_args(Decision.__value__), case_sensitive=False),
+        default="n",
+        show_choices=False,
+        show_default=False,
+        err=True,
+    )
+    return choice
+
+
+def confirm(cmd: str) -> str | None:
+    """Ask what to do with `cmd`, returning it when accepted, or None to decline.
+
+    The question is read from the terminal, then the original stdin is put back.
+    """
+    saved = keep_stdin()
+    try:
+        attach_tty()
+
+        while True:
+            show_command(cmd)
+            match ask_choice():
+                case "y":
+                    return cmd
+                case "e":
+                    edited = click.edit(cmd + "\n", extension=".sh")
+                    if edited is None:
+                        # editor saved nothing; ask again
+                        continue
+
+                    cmd = edited.strip()
+                    if not cmd:
+                        raise click.ClickException("empty command after editing")
+                case "n":
+                    return None
+    finally:
+        if saved is not None:
+            os.dup2(saved, 0)
+            os.close(saved)
+
+
+def run(text: str, model: str | None, thinking: Thinking, *, yes: bool) -> NoReturn:
+    """Generate a command, confirm it, then replace this process with bash."""
+    cmd = generate_command(text, model, thinking)
+    if not cmd:
+        raise click.ClickException("no command generated")
+    if CANNOT_MARKER in cmd:
+        reason = cmd.split(CANNOT_MARKER, 1)[1].strip()
+        raise click.ClickException(
+            reason or "cannot generate a command for this request"
+        )
+
+    if yes:
+        show_command(cmd)
+    else:
+        accepted = confirm(cmd)
+        if accepted is None:
+            sys.exit(1)
+        cmd = accepted
+
+    sys.stdout.flush()
+    sys.stderr.flush()
+    os.execvp("bash", ["bash", "-c", cmd])
+
+
+@click.command(context_settings={"help_option_names": ["-h", "--help"]})
+@click.rich_config(help_config={"theme": "default-slim"})
+@click.argument("prompt", nargs=-1, required=True)
+@click.option(
+    "-m",
+    "--model",
+    envvar="PI_EXEC_MODEL",
+    show_envvar=True,
+    help="Model pattern passed to `pi --model`.",
+)
+@click.option(
+    "-t",
+    "--thinking",
+    envvar="PI_EXEC_THINKING",
+    show_envvar=True,
+    default="off",
+    show_default=True,
+    type=click.Choice(THINKING_LEVELS),
+    # List the choices in the help text; as a metavar they wrap mid-word.
+    metavar="LEVEL",
+    help=f"Thinking level passed to `pi --thinking`: {', '.join(THINKING_LEVELS)}.",
+)
+@click.option("-y", "--yes", is_flag=True, help="Run without asking for confirmation.")
+def main(
+    prompt: tuple[str, ...],
+    model: str | None,
+    thinking: Thinking,
+    *,
+    yes: bool,
+) -> None:
+    """Generate a shell command from PROMPT with pi, confirm it, and run it.
+
+    PROMPT must be given as arguments; stdin is left untouched, so it reaches the
+    command, e.g. `cat data | pi-exec 'sort these lines'`.
+    """
+    text = " ".join(prompt).strip()
+    if not text:
+        # Click rejects a missing argument; this catches "" and whitespace-only
+        # input.
+        raise click.UsageError("empty prompt")
+
+    try:
+        run(text, model, thinking, yes=yes)
+    except (KeyboardInterrupt, EOFError, click.Abort):
+        # Ctrl-C / Ctrl-D: end the line quietly instead of click's "Aborted!".
+        click.echo(err=True)
+        sys.exit(130)
+
+
+if __name__ == "__main__":
+    main()
