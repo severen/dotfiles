@@ -94,15 +94,18 @@ def executables(directory: Path) -> set[str]:
 
 def installed_commands() -> set[str]:
     """
-    Names of every executable on PATH, each listed once even if it exists in
-    several directories. Directories repeated in PATH are scanned only once.
+    Every executable name on PATH, deduplicated; a PATH directory that repeats is
+    scanned only once.
     """
     commands: set[str] = set()
     seen: set[Path] = set()
 
     for entry in os.environ.get("PATH", "").split(os.pathsep):
-        directory = Path(entry).resolve() if entry else None
-        if directory is None or directory in seen:
+        if not entry:
+            continue
+
+        directory = Path(entry).resolve()
+        if directory in seen:
             continue
 
         seen.add(directory)
@@ -343,6 +346,9 @@ def main(
     PROMPT must be given as arguments; stdin is left untouched, so it reaches the
     command, e.g. `cat data | pi-exec 'sort these lines'`.
     """
+    # Python ignores SIGPIPE; die like a normal Unix tool when our reader goes away.
+    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+
     text = " ".join(prompt).strip()
     if not text:
         # Click rejects a missing argument; this catches "" and whitespace-only
