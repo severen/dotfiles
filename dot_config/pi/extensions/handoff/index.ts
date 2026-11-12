@@ -24,14 +24,14 @@ import {
   serializeConversation,
 } from "@earendil-works/pi-coding-agent";
 
-const SYSTEM_PROMPT = `You are a context transfer assistant. Given a conversation history and the user's goal for a new thread, generate a focused prompt that:
+const SYSTEM_PROMPT = `You are a context transfer assistant. Given a conversation history and the user's goal for a new session, generate a focused prompt that:
 
 1. Summarizes relevant context from the conversation (decisions made, approaches taken, key findings)
 2. Lists any relevant files that were discussed or modified
 3. Clearly states the next task based on the user's goal
-4. Is self-contained - the new thread should be able to proceed without the old conversation
+4. Is self-contained - the new session should be able to proceed without the old conversation
 
-Format your response as a prompt the user can send to start the new thread. Be concise but include all necessary context. Do not include any preamble like "Here's the prompt" - just output the prompt itself.
+Format your response as a prompt the user can send to start the new session. Be concise but include all necessary context. Do not include any preamble like "Here's the prompt" - just output the prompt itself.
 
 Example output format:
 ## Context
@@ -110,7 +110,7 @@ export default function (pi: ExtensionAPI) {
 
       const goal = args.trim();
       if (!goal) {
-        ctx.ui.notify("Usage: /handoff <goal for new thread>", "error");
+        ctx.ui.notify("Usage: /handoff <goal for new session>", "error");
         return;
       }
 
@@ -144,7 +144,7 @@ export default function (pi: ExtensionAPI) {
               content: [
                 {
                   type: "text",
-                  text: `## Conversation History\n\n${conversationText}\n\n## User's Goal for New Thread\n\n${goal}`,
+                  text: `## Conversation History\n\n${conversationText}\n\n## User's Goal for New Session\n\n${goal}`,
                 },
               ],
               timestamp: Date.now(),
